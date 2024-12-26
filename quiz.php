@@ -70,7 +70,7 @@
       </div>
 
       <div class="flex flex-col gap-4 pt-8">
-        <div id="first_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white py-4 px-5 rounded-2xl">
+        <div id="first_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
           <p class="text-sm font-semibold"></p>
           <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div>
         </div>
@@ -107,6 +107,10 @@
       var resArray = null;
       var index = 0;
       var totalQuestionsCount = 0;
+      var currentQuizId = null;
+      var currentQuesType = null;
+      var userAnswer = [];
+      var tempAnswer = ""; // In this variable store the answer of current question
 
       $.ajax({
         url: 'api.php',
@@ -125,12 +129,21 @@
 
 
       function displayQuestion(){
-        resetOptions();
+
+        if(index > 0){
+          resetOptions();
+          userAnswer.push({question_id: currentQuizId, answer: tempAnswer});
+          tempAnswer = "";
+        }
 
         let tempQuestion = resArray[index++];
         if(!tempQuestion){
+          getCorrectAnswer();
           alert("test Sumitted");
+          return;
         }
+        currentQuizId = tempQuestion.question_id;
+        currentQuesType = tempQuestion.type;
         $('.current_question_number').text(index);
 
         $('#question_title').text(tempQuestion.questions);
@@ -162,6 +175,9 @@
       }
 
       function selectOption(event) {
+        if(currentQuesType === "TRUE_FALSE"){
+          resetOptions();
+        }
         const element = event.target;
         element.classList.toggle('bg-white');
         element.classList.toggle('bg-color4');
@@ -180,10 +196,79 @@
             divTag.classList.toggle('border-color21');
             divTag.classList.toggle('bg-p3');
         }
+
+        saveAnswer(element.id);
       }
 
-      function saveAnswer(){
-        
+      function saveAnswer(answer){
+        let tempOption = "";
+        if(answer === "first_option"){
+          tempOption = "1";
+        }else if(answer === "second_option"){
+          tempOption = "2";
+        }else if(answer === "third_option"){
+          tempOption = "3";
+        }else if(answer === "fourth_option"){
+          tempOption = "4";
+        }
+
+        if(tempAnswer.includes(tempOption)){
+          tempAnswer = tempAnswer.replace(tempOption, "");
+        }else{
+          tempAnswer += tempOption
+        }
+      }
+
+      function getCorrectAnswer(){
+        $.ajax({
+          method: 'GET',
+          url: 'api.php',
+          data: {function_name: 'get_correct_answer', quiz_id: <?= $_GET['quiz_id'] ?>},
+          success: function (res){
+            let correctAnswer = JSON.parse(res);
+
+            let correctQues = 0;
+            let incorrectQues = 0;
+
+            console.log("res");
+            userAnswer.forEach((element, index) => {
+              if(element.answer !== ''){
+                if(element.answer === correctAnswer[index].correct_answer){
+                  correctQues++;
+                }else{
+                  incorrectQues++;
+                }
+              }
+            });
+
+            submitQuizAnswer(correctQues, incorrectQues);
+
+          },
+          error: function (err){
+            console.error(err);
+          }
+        })
+      }
+
+      function submitQuizAnswer(correct, incorrect){
+        $.ajax({
+          method: 'GET',
+          url: 'api.php',
+          data: {
+            function_name: 'submit_answer',
+            quiz_id: <?= $_GET['quiz_id'] ?>,
+            answer_json: JSON.stringify(userAnswer),
+            correct_ques: correct,
+            incorrect_ques: incorrect
+          },
+          success: function (data){
+            window.location.href = 'quiz-result.php?quiz_id=<?= $_GET['quiz_id'] ?>';
+          },
+          error: function(error){
+            console.error("Error in submitting the quiz answer:", error);
+          }
+        });
+
       }
 
 

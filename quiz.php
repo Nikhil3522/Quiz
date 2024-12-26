@@ -175,7 +175,7 @@
       }
 
       function selectOption(event) {
-        if(currentQuesType === "TRUE_FALSE"){
+        if(currentQuesType === "TRUE_FALSE" || currentQuesType === "SINGLE_CHOICE"){
           resetOptions();
         }
         const element = event.target;
@@ -219,6 +219,17 @@
         }
       }
 
+      function isAnswerCorrect(str1, str2) {
+        // Check if lengths are different
+        if (str1.length !== str2.length) return false;
+
+        // Sort the characters in both strings and compare
+        const sortedStr1 = str1.split('').sort().join('');
+        const sortedStr2 = str2.split('').sort().join('');
+
+        return sortedStr1 === sortedStr2;
+      }
+
       function getCorrectAnswer(){
         $.ajax({
           method: 'GET',
@@ -230,10 +241,9 @@
             let correctQues = 0;
             let incorrectQues = 0;
 
-            console.log("res");
             userAnswer.forEach((element, index) => {
               if(element.answer !== ''){
-                if(element.answer === correctAnswer[index].correct_answer){
+                if(isAnswerCorrect(element.answer, correctAnswer[index].correct_answer)){
                   correctQues++;
                 }else{
                   incorrectQues++;

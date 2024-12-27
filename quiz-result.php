@@ -75,89 +75,26 @@
           </div>
           <p class="text-white bg-p1 text-xs py-1 px-2 rounded-md">Complete</p>
         </div> -->
-        <div class="rounded-2xl overflow-hidden shadow2 mt-8">
-          <div class="p-5 bg-white dark:bg-color10">
-            <div class="flex justify-between items-center pb-5">
-              <div class="flex justify-start items-center gap-2">
-                <div
-                  class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black text-center"
-                >
-                  <p class="font-semibold text-xs">Day</p>
-                  <p class="text-[10px]">1</p>
-                </div>
+        <div
+          class="flex justify-start items-start gap-4 bg-white border dark:bg-color9 border-color21 p-4 mt-8 rounded-2xl"
+          style="margin-top: 90px;"
+        >
+        <div
+            class="flex flex-col gap-2 pr-4 border-r border-dashed border-black dark:border-color24 border-opacity-10 "
+            style="width: 45%;"
+            >
+            <div class="flex justify-start items-center gap-3 pt-5">
+                <img src="assets/images/badge.png" alt="">
                 <div class="">
-                  <p class="font-semibold text-xs">English Language Quiz</p>
-                  <p class="text-xs">Language - English</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-between items-center pb-5">
-              <div class="flex justify-start items-center gap-3">
-                <img src="assets/images/badge.png" alt="" />
-                <div class="">
-                  <p class="text-xs">Your Marks</p>
+                  <p class="text-xs">Points Earned</p>
                   <p class="font-semibold text-p1">
-                    <?= $row['correct_ques'] ?> <span class="text-sm text-color5">/10</span>
+                    20
                   </p>
                 </div>
               </div>
-              <!-- <p class="bg-color16 text-xs py-1 px-2 rounded-md">
-                Sectional Analysis
-              </p> -->
-            </div>
-            <div
-              class="flex justify-between items-center text-xs py-5 border-t border-b border-dashed border-black dark:border-color24 border-opacity-10"
-            >
-              <div class="">
-                <p>Max Marks</p>
-                <p class="font-semibold">16</p>
-              </div>
-              <div class="">
-                <p>Marks Scored</p>
-                <p class="font-semibold text-p2">14</p>
-              </div>
-              <div class="text-p1">
-                <p>Marks Deducted</p>
-                <p class="font-semibold">-3.44</p>
-              </div>
-            </div>
-
-            <!-- <div
-              class="border-b border-dashed border-black dark:border-color24 border-opacity-10 py-5 flex justify-between items-center text-xs"
-            >
-              <div class="flex justify-start items-center gap-2">
-                <div
-                  class="text-white flex justify-center items-center p-2.5 bg-p1 rounded-full"
-                >
-                  <i class="ph ph-trophy text-base !leading-none"></i>
-                </div>
-                <div class="">
-                  <p>Price Pool</p>
-                  <p class="font-semibold text-base">$98,000</p>
-                </div>
-              </div>
-              <div class="flex justify-start items-center gap-2">
-                <p>You Won -</p>
-                <p class="text-p2 bg-color16 px-2 py-1 rounded-md">13365</p>
-              </div>
-            </div> -->
-            <!-- <div class="pt-5 flex justify-between items-center">
-              <div class="flex justify-start items-center gap-1">
-                <i class="ph ph-brain text-p2"></i>
-                <p class="text-xs">Trivia Quiz</p>
-              </div>
-              <div class="flex justify-start items-center gap-2">
-                <i class="ph ph-bell-ringing"></i>
-                <i class="ph ph-share-network"></i>
-              </div>
-            </div> -->
           </div>
-        </div>
-        <div
-          class="flex justify-start items-start gap-4 bg-white border dark:bg-color9 border-color21 p-4 mt-8 rounded-2xl"
-        >
           <div
-            class="flex flex-col gap-2 pr-4 border-r border-dashed border-black dark:border-color24 border-opacity-10"
+            class="flex flex-col gap-5 pr-4"
           >
             <div class="flex justify-between items-center gap-4">
               <div class="flex justify-start items-center gap-2">
@@ -192,32 +129,28 @@
               </div>
               <p class="font-semibold"><?= 10 - $row['incorrect_ques'] - $row['correct_ques'] ?></p>
             </div>
-            <div class="pt-3">
-              <a
-                href="#"
-                class="bg-color16 rounded-full py-1 px-2 text-xs text-p2 dark:text-p1 dark:bg-bgColor16"
-              >
-                View Solution
-              </a>
-            </div>
-          </div>
-          <div class="pl-4">
-            <div class="flex justify-start items-center gap-2">
-              <img src="assets/images/result-cup.svg" alt="" />
-              <p class="text-xs text-color5 dark:text-white">
-                Explore ongoing contests and join the ones that your
-              </p>
-            </div>
-            <div class="pt-[68px]">
-              <a
-                href="#"
-                class="bg-p2 dark:bg-p1 text-white rounded-full py-1 px-2 text-xs"
-              >
-                Join Now
-              </a>
-            </div>
           </div>
         </div>
+        <div class="pt-12">
+          <a
+            class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
+            onclick="window.history.back();"
+          >
+            Re-take
+          </a>
+        </div>
+        <div class="pt-2">
+          <a
+            class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
+            onclick="window.history.back();"
+            style="background: #ff710f;"
+            >
+            Unlock Next
+          </a>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 14px; text-align: center; font-family: 'Poppins';">You need to answer a minimum of 8 questions correctly, to unlock the next level.</p>
+
       </div>
     </div>
     <!-- ==== js dependencies start ==== -->

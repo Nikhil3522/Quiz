@@ -24,9 +24,9 @@
     >
       <!-- Absolute Items Start -->
       <img
-        src="assets/images/header-bg-2.png"
+        src="assets/images/header-bg-1.png"
         alt=""
-        class="absolute top-0 left-0 right-0 -mt-32"
+        class="absolute top-0 left-0 right-0 -mt-16"
       />
       <div
         class="absolute top-0 left-0 bg-p3 blur-[145px] h-[174px] w-[149px]"
@@ -46,20 +46,20 @@
       <div class="relative z-50 px-6">
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
-            <a
-              class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
-              href="home.html"
-            >
+          <a
+            class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
+            href="javascript:void(0);" 
+            onclick="window.history.back();"
+          >
               <i class="ph ph-caret-left"></i>
             </a>
-            <h2 class="text-2xl font-semibold text-white">Choose Level</h2>
+            <h2 class="text-2xl font-semibold text-white"><?= $_GET['sub_category_name'] ?></h2>
           </div>
         </div>
         <div class="mt-28">
           <div class="flex flex-col justify-center items-center text-center">
-            <p class="text-xl font-semibold">Please choose level</p>
           </div>
-          <div class="pt-8 grid grid-cols-3 gap-3 levelItems">
+          <div class="grid grid-cols-3 gap-3 levelItems">
             <?php
                 $sub_category_id = $_GET['sub_category_id'];
                 $query = "SELECT * FROM quiz_sub_categories_level WHERE sub_cat_id = $sub_category_id";
@@ -72,12 +72,26 @@
                     ?>
                     <div
                     class="bg-white dark:bg-color9 shadow-sm text-center rounded-lg relative item cursor-pointer"
+                    <?php
+                      if( $sub_cat_level_id  === '31'){
+                    ?>
+                      onclick="window.location.href='quiz.php?quiz_id=<?= $sub_cat_level_id ?>'"
+                    <?php
+                      }
+                    ?>
+                    
                     >
-                    <div
+                    <?php
+                      if( $sub_cat_level_id  !== '31'){
+                    ?>
+                      <div
                         class="flex justify-center items-center p-1 rounded-full text-p2 bg-color14 border dark:text-p1 dark:border-bgColor16 dark:bg-bgColor14 border-color16 absolute top-2 text-xs right-2"
                     >
                         <i class="ph ph-lock-simple-open"></i>
                     </div>
+                    <?php
+                      }
+                    ?>
                     <div class="rounded-full">
                         <div
                         class="rounded-full flex justify-center items-center text-lg font-bold relative progress small"
@@ -113,18 +127,10 @@
             ?>
 
           </div>
-
-          <div class="pt-8">
-            <a
-              href="home.html"
-              class="bg-p2 rounded-full py-3 text-white text-sm font-semibold text-center block mt-12 dark:bg-p1"
-              >Continue</a
-            >
-          </div>
         </div>
       </div>
     </div>
-    <div class="hidden inset-0 z-40 hintModal">
+    <!-- <div class="hidden inset-0 z-40 hintModal">
       <div
         class="container bg-black dark:bg-white dark:bg-opacity-30 bg-opacity-40 flex justify-center items-center h-full px-6"
       >
@@ -161,7 +167,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- ==== js dependencies start ==== -->
     <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script></body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/choose-category.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:14 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/top-member.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:13 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8" />
@@ -11,22 +11,20 @@
       href="assets/images/logo.png"
       type="image/x-icon"
     />
+    <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Choose Category - Quizio PWA HTML Template</title>
+    <title>Top Member - Quizio PWA HTML Template</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
-    <?php
-      include('cons.php');
-    ?>
     <div
-      class="container min-h-dvh relative overflow-hidden py-8 dark:text-white dark:bg-color1"
+      class="container min-h-dvh relative overflow-hidden py-8 dark:text-white dark:bg-black"
     >
       <!-- Absolute Items Start -->
       <img
-        src="assets/images/header-bg-2.png"
+        src="assets/images/header-bg-1.png"
         alt=""
-        class="absolute top-0 left-0 right-0 -mt-32"
+        class="absolute top-0 left-0 right-0 -mt-16"
       />
       <div
         class="absolute top-0 left-0 bg-p3 blur-[145px] h-[174px] w-[149px]"
@@ -43,87 +41,69 @@
       <!-- Absolute Items End -->
 
       <!-- Page Title Start -->
-      <div class="relative z-20 px-6">
-        <div class="flex justify-between items-center gap-4">
-          <div class="flex justify-start items-center gap-4">
-            <a
-              href="home.html"
-              class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
-            >
-              <i class="ph ph-caret-left"></i>
-            </a>
-            <h2 class="text-2xl font-semibold text-white">Choose Category</h2>
-          </div>
+      <div class="relative z-10">
+        <div class="flex justify-start items-center gap-4 px-6">
+          <a
+            href="home.html"
+            class="bg-white p-1 rounded-full flex justify-center items-center text-xl text-color10"
+          >
+            <i class="ph ph-caret-left"></i>
+          </a>
+          <h2 class="text-2xl font-semibold text-white">Learning Stages</h2>
         </div>
-        <div class="grid grid-cols-2 gap-5 pt-28">
-          <!-- <a
-            href="math-quiz.html"
-            class="flex justify-start items-start gap-2 bg-white px-3 pt-3 pb-6 rounded-xl dark:bg-color9"
-          >
-            <img src="assets/images/icon1.png" alt="" class="size-12" />
-            <div class="">
-              <p class="text-sm font-semibold">Music Quiz</p>
-              <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
-            </div>
-          </a>
-          <a
-            href="math-quiz.html"
-            class="flex justify-start items-start gap-2 bg-white px-3 pt-3 pb-6 rounded-xl dark:bg-color9"
-          >
-            <img src="assets/images/icon2.png" alt="" class="size-12" />
-            <div class="">
-              <p class="text-sm font-semibold">Picture Quiz</p>
-              <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
-            </div>
-          </a>
-          <a
-            href="math-quiz.html"
-            class="flex justify-start items-start gap-2 bg-white px-3 pt-3 pb-6 rounded-xl dark:bg-color9"
-          >
-            <img src="assets/images/icon3.png" alt="" class="size-12" />
-            <div class="">
-              <p class="text-sm font-semibold">Music Quiz</p>
-              <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
-            </div>
-          </a>
-          <a
-            href="math-quiz.html"
-            class="flex justify-start items-start gap-2 bg-white px-3 pt-3 pb-6 rounded-xl dark:bg-color9"
-          >
-            <img src="assets/images/icon4.png" alt="" class="size-12" />
-            <div class="">
-              <p class="text-sm font-semibold">Science Quiz</p>
-              <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
-            </div>
-          </a> -->
+        <!-- Page Title End -->
+
+        <!-- Contest List Start -->
+        <div class="px-6 flex flex-col gap-4 pt-20">
           <?php
+            include('cons.php');
+
             $query = "SELECT * FROM quiz_categories";
             $categories_result = $conn->query($query);
 
             while($row = $categories_result->fetch_assoc()){
               $category_id = $row['category_id'];
               $category_name = $row['name'];
-              ?>
-              <a
-                href="choose-sub-category.php?category_id=<?= $category_id; ?>"
-                class="flex justify-start items-start gap-2 bg-white px-3 pt-3 pb-6 rounded-xl dark:bg-color9"
-              >
-                <!-- <img src="assets/images/icon4.png" alt="" class="size-12" /> -->
-                <span style=" background: #ffce85; height: 45px; width: 45px; border-radius: 25px; text-align: center; line-height: 45px; font-size: 25px; color: #5c46f6; font-weight: 600;"><?= substr($category_name, 0, 1); ?></span>
-                <div class="">
-                  <p class="text-sm font-semibold"><?= $category_name; ?></p>
-                  <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
-                </div>
-              </a>
-              <?php
-            }
           ?>
+          <div
+            class="flex justify-between items-center bg-white py-4 px-5 rounded-xl border border-black border-opacity-20 dark:bg-color9 dark:border-color24"
+          >
+            <div class="flex justify-start items-center gap-3">
+              <div class="rounded-full overflow-hidden">
+                <img
+                  src="assets/images/user-img-1.png"
+                  alt=""
+                  class="size-12"
+                />
+              </div>
+              <div class="">
+                <div class="flex justify-start items-center gap-1">
+                  <p class="font-semibold"><?= $category_name ?></p>
+                </div>
+              </div>
+            </div>
+
+            <a href="choose-sub-category.php?category_id=<?= $category_id; ?>&category_name=<?= $category_name; ?>">
+              <button
+                class="text-white bg-p2 py-1 px-4 rounded-full dark:bg-p1"
+                style="font-size: 14px;"
+              >
+                  Start
+              </button>
+            </a>
+
+            
+          </div>
+          <?php
+            } 
+            ?>
         </div>
+        <!-- Contest List End -->
       </div>
     </div>
     <!-- ==== js dependencies start ==== -->
     <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script></body>
 
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/choose-category.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:14 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/top-member.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:13 GMT -->
 </html>

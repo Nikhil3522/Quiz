@@ -52,7 +52,7 @@
             >
               <i class="ph ph-caret-left"></i>
             </a>
-            <h2 class="text-2xl font-semibold text-white">Choose Category</h2>
+            <h2 class="text-2xl font-semibold text-white"><?= $_GET['category_name']; ?></h2>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-5 pt-28">

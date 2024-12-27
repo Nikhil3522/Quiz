@@ -108,7 +108,8 @@
                 href="choose-sub-category.php?category_id=<?= $category_id; ?>"
                 class="flex justify-start items-start gap-2 bg-white px-3 pt-3 pb-6 rounded-xl dark:bg-color9"
               >
-                <img src="assets/images/icon4.png" alt="" class="size-12" />
+                <!-- <img src="assets/images/icon4.png" alt="" class="size-12" /> -->
+                <span style=" background: #ffce85; height: 45px; width: 45px; border-radius: 25px; text-align: center; line-height: 45px; font-size: 25px; color: #5c46f6; font-weight: 600;"><?= substr($category_name, 0, 1); ?></span>
                 <div class="">
                   <p class="text-sm font-semibold"><?= $category_name; ?></p>
                   <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>

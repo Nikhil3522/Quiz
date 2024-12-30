@@ -53,11 +53,9 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 34 34">
               <circle cx="16" cy="16" r="15.9155" class="progress-bar__background" />
 
-              <circle cx="16" cy="16" r="15.9155" style="stroke-dashoffset: 90px"
+              <circle id="timer-circle" cx="16" cy="16" r="15.9155" style="stroke-dashoffset: 0px"
                 class="progress-bar__progress js-progress-bar" />
-              <p class="text-lg font-bold absolute top-[26px] left-[30px]">
-                10
-              </p>
+                <p id="timeDisplay" style="font-size: 20px; font-weight: 400; text-align: center; width: 18px;" class="text-lg font-bold absolute top-[26px] left-[30px]">30</p>
             </svg>
           </div>
         </div>
@@ -119,6 +117,7 @@
       var currentQuesType = null;
       var userAnswer = [];
       var tempAnswer = ""; // In this variable store the answer of current question
+      let previousTime = null;
 
       $.ajax({
         url: 'api.php',
@@ -137,7 +136,7 @@
 
 
       function displayQuestion(){
-
+        timer();
         if(index > 0){
           resetOptions();
           userAnswer.push({question_id: currentQuizId, answer: tempAnswer});
@@ -293,6 +292,28 @@
           window.history.back()
         }
       }
+
+      function timer(){
+        let maxTime = 30; //29 sec
+        let strokeValue = 0;
+
+        clearInterval(previousTime);
+
+        previousTime = setInterval(() => {
+
+          if(maxTime === 0){
+            displayQuestion();
+            maxTime = 30;
+          }
+
+          $('#timeDisplay').text(maxTime--);
+          $('#timer-circle').css('stroke-dashoffset', `${strokeValue}px`);
+          
+          strokeValue += 3.33;
+        }, 1000);
+      }
+
+      timer();
 
     </script>
 </body>

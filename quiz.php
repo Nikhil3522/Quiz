@@ -180,10 +180,14 @@
       }
 
       function selectOption(event) {
-        if(currentQuesType === "TRUE_FALSE" || currentQuesType === "SINGLE_CHOICE"){
-          resetOptions();
+        // Ensure the clicked element is the outermost <div> or find its parent
+        const element = event.target.closest('.flex'); // Adjust the selector to your outermost div class
+        if (!element) return; // Exit if no matching element is found
+
+        if (currentQuesType === "TRUE_FALSE" || currentQuesType === "SINGLE_CHOICE") {
+            resetOptions();
         }
-        const element = event.target;
+
         element.classList.toggle('bg-white');
         element.classList.toggle('bg-color4');
 
@@ -191,15 +195,6 @@
         let pTag = element.querySelector('p');  // This selects the first <p> inside the clicked element
         if (pTag) {
             pTag.classList.toggle('text-p2');
-        }
-
-        // Select the <div> element inside the clicked element
-        let divTag = element.querySelector('div');
-        if (divTag) {
-            // Toggle classes separately
-            divTag.classList.toggle('border');
-            divTag.classList.toggle('border-color21');
-            divTag.classList.toggle('bg-p3');
         }
 
         saveAnswer(element.id);

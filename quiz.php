@@ -27,6 +27,9 @@
 
     
     <div class="relative z-20 px-6">
+      <button onclick="closeWarning()" class="sidebarModalCloseButton absolute top-1 right-3 border rounded-full border-p1 flex justify-center items-center p-1 text-white">
+        <i class="ph ph-x"></i>
+      </button>
       <div class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9" style="width: 100px; margin: auto;">
         <p class="text-xs font-semibold text-nowrap"><span class="current_question_number"></span> of <span class="total_question_number"></span></p>
       </div>
@@ -281,7 +284,14 @@
 
       }
 
+      function closeWarning(){
+        
 
+        let confirmValue = confirm("If you close the quiz now, your responses will not be saved. Are you sure you want to close the quiz?");
+        if (confirmValue === true) {
+          window.history.back()
+        }
+      }
 
     </script>
 </body>

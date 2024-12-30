@@ -55,7 +55,7 @@
 
               <circle id="timer-circle" cx="16" cy="16" r="15.9155" style="stroke-dashoffset: 0px"
                 class="progress-bar__progress js-progress-bar" />
-                <p id="timeDisplay" style="font-size: 20px; font-weight: 400; text-align: center; width: 18px;" class="text-lg font-bold absolute top-[26px] left-[30px]">30</p>
+                <p id="timeDisplay" style="font-size: 20px; font-weight: 400; text-align: center; width: 18px;" class="text-lg font-bold absolute top-[26px] left-[30px]">20</p>
             </svg>
           </div>
         </div>
@@ -294,7 +294,7 @@
       }
 
       function timer(){
-        let maxTime = 30; //29 sec
+        let maxTime = 20; //29 sec
         let strokeValue = 0;
 
         clearInterval(previousTime);
@@ -309,7 +309,7 @@
           $('#timeDisplay').text(maxTime--);
           $('#timer-circle').css('stroke-dashoffset', `${strokeValue}px`);
           
-          strokeValue += 3.33;
+          strokeValue += 5;
         }, 1000);
       }
 

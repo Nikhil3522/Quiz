@@ -303,7 +303,7 @@
 
           if(maxTime === 0){
             displayQuestion();
-            maxTime = 30;
+            maxTime = 20;
           }
 
           $('#timeDisplay').text(maxTime--);

@@ -75,7 +75,7 @@
                     <?php
                       if( $sub_cat_level_id  === '31'){
                     ?>
-                      onclick="window.location.href='quiz.php?quiz_id=<?= $sub_cat_level_id ?>'"
+                      onclick="window.location.href='quiz.php?quiz_id=<?= $sub_cat_level_id ?>&quiz_name=<?= $level_name ?>'"
                     <?php
                       }
                     ?>

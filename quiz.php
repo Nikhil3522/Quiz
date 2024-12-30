@@ -30,6 +30,7 @@
       <button onclick="closeWarning()" class="sidebarModalCloseButton absolute top-1 right-3 border rounded-full border-p1 flex justify-center items-center p-1 text-white">
         <i class="ph ph-x"></i>
       </button>
+      <h2 style="text-align: center; color: white; font-weight: 500; text-transform: uppercase; margin-bottom: 5px; font-size: 20px;"><?= $_GET['quiz_name'] ?></h2>
       <div class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9" style="width: 100px; margin: auto;">
         <p class="text-xs font-semibold text-nowrap"><span class="current_question_number"></span> of <span class="total_question_number"></span></p>
       </div>

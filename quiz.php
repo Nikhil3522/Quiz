@@ -25,28 +25,24 @@
     <div class="absolute bottom-0 right-0 bg-p3 blur-[220px] h-[174px] w-[149px]"></div>
     <!-- Absolute Items End -->
 
+    
     <div class="relative z-20 px-6">
-      <div class="flex justify-between items-center gap-5">
-        <div class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9">
-          <i class="ph ph-user"></i>
-          <p class="text-xs font-semibold text-nowrap"><span class="current_question_number"></span> of <span class="total_question_number"></span></p>
-        </div>
+      <div class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9" style="width: 100px; margin: auto;">
+        <p class="text-xs font-semibold text-nowrap"><span class="current_question_number"></span> of <span class="total_question_number"></span></p>
+      </div>
+      <div class="flex justify-between items-center gap-5 mt-2">
         <div class="w-full bg-p1 bg-opacity-10 h-2 rounded-full relative">
-          <span class="absolute top-0 left-0 bg-p1 h-2 rounded-full" style="width: 10%"></span>
-        </div>
-        <div class="flex justify-center items-center gap-1 bg-p1 text-white py-2 px-4 rounded-xl ">
-          <i class="ph ph-puzzle-piece"></i>
-          <p class="text-xs font-semibold text-nowrap">1 of <span class="total_question_number"></span></p>
+          <span class="absolute top-0 left-0 bg-p1 h-2 rounded-full" id="width-bar" style="width: 10%"></span>
         </div>
       </div>
 
       <div
         class="bg-white dark:bg-color11 p-4 rounded-xl mt-20 text-center flex flex-col justify-center items-center relative">
-        <div
+        <!-- <div
           class="flex justify-center items-center gap-1 bg-bgColor16 px-3 py-1 rounded-md font-semibold text-p2 dark:text-white text-xs absolute left-4 top-4">
           <i class="ph-fill ph-lightbulb-filament text-p1 text-sm"></i>
           <p>Hint</p>
-        </div>
+        </div> -->
         <div class="h-24 w-24 rounded-full bg-p2 p-2 -mt-16">
           <div
             class="h-full w-full bg-white dark:bg-color9 rounded-full flex justify-center items-center text-lg font-bold p-1.5 relative progress">
@@ -61,8 +57,7 @@
             </svg>
           </div>
         </div>
-        <p class="text-2xl font-semibold pt-8">Question <span class="current_question_number"></span></p>
-        <p class="text-sm text-color5 pt-5 pb-3 dark:text-bgColor5">Sports Quiz</p>
+        <p class="text-2xl font-semibold pt-2 pb-2">Question <span class="current_question_number"></span></p>
         <p class="text-lg font-semibold px-4 pt-3 border-t border-dashed border-color21 dark:border-color24" id="question_title"></p>
       </div>
       <div>
@@ -71,29 +66,38 @@
 
       <div class="flex flex-col gap-4 pt-8">
         <div id="first_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
-          <p class="text-sm font-semibold"></p>
-          <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div>
+          <p class="text-sm font-semibold text-center" style="width: 100%;"></p>
+          <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
         <div id="second_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
-          <p class=" text-sm font-semibold"></p>
-          <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div>
+          <p class=" text-sm font-semibold text-center" style="width: 100%;"></p>
+          <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
         <div id="third_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
-          <p class=" text-sm font-semibold"></p>
-          <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div>
+          <p class=" text-sm font-semibold text-center" style="width: 100%;"></p>
+          <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
         <div id="fourth_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
-          <p class="text-sm font-semibold"></p>
-          <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div>
+          <p class="text-sm font-semibold text-center" style="width: 100%;"></p>
+          <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
       </div>
 
       <div class="pt-12">
         <a
-          class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full"
+          class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
           onclick="displayQuestion()"
           >
           Next
+        </a>
+      </div>
+      <div class="pt-2">
+        <a
+          class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
+          onclick="displayQuestion()"
+          style="background: #ff710f;"
+          >
+          Skip
         </a>
       </div>
     </div>
@@ -139,7 +143,6 @@
         let tempQuestion = resArray[index++];
         if(!tempQuestion){
           getCorrectAnswer();
-          alert("test Sumitted");
           return;
         }
         currentQuizId = tempQuestion.question_id;
@@ -158,6 +161,8 @@
           $('#third_option p').text(tempQuestion.third_option);
           $('#fourth_option p').text(tempQuestion.fourth_option);
         }
+
+        $('#width-bar').css('width',`${index*10}%`);
       }
 
       // Function to reset the classes of options

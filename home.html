@@ -56,7 +56,7 @@
               href="#"
               class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24"
             >
-              <i class="ph ph-bell"></i>
+              <i class="ph ph-globe"></i>
             </a>
             <a
               href="my-profile.html"
@@ -78,80 +78,70 @@
             class="absolute -left-[53%] -top-[620px] min-[370px]:-top-[650px] min-[380px]:-top-[680px] min-[400px]:-top-[720px] min-[420px]:-top-[750px]"
             style="margin-top: 30px;"
           >
-            <div
-              class="flex justify-around items-center rounded-full relative rotate-0 circleSliders duration-700 max-[430px]:size-[209vw] size-[900px]"
+            <div 
+              class="flex justify-around items-center rounded-full relative rotate-0 circleSliders duration-700 max-[430px]:size-[209vw] size-[900px] cursor-pointer"
+              style="transform: rotate(-58deg);"
             >
               <a
                 href="#"
+                onclick="redirectStage()"
                 class="flex flex-col justify-center items-center text-center gap-3 absolute -left-[1%] bottom-[35%] rotate-[58deg]"
               >
-                <img src="assets/images/icon1.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">Puzzle Quiz</p>
+                <img src="assets/images/Beginner.png" style="width: 90px" alt="" class="" />
+                <p class="text-sm font-semibold dark:text-white">Beginner</p>
               </a>
-              <div class="flex flex-col justify-center items-center text-center gap-3 absolute rotate-[58deg]" style="left: 4%; bottom: 19.5%;">
-                <img src="assets/images/icon3.png" style="width: 90px" alt="" class="">
-                <p class="text-xs font-semibold dark:text-white">
-                  Language Quiz
+              <div onclick="redirectStage()" class="flex flex-col justify-center items-center text-center gap-3 absolute rotate-[58deg] cursor-pointer" style="left: 4%; bottom: 19.5%;">
+                <img src="assets/images/Elementary.png" style="width: 90px" alt="" class="">
+                <p class="text-sm font-semibold dark:text-white">
+                  Elementary
                 </p>
               </div>
               <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute left-[15.5%] bottom-[7.5%] rotate-[58deg]"
+                onclick="redirectStage()"
+                class="flex flex-col justify-center items-center text-center gap-3 absolute left-[15.5%] bottom-[7.5%] rotate-[58deg] cursor-pointer"
               >
-                <img src="assets/images/icon4.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">
-                  Picture Quiz
+                <img src="assets/images/Pre-Intermediate.png" style="width: 90px" alt="" class="" />
+                <p class="text-sm font-semibold dark:text-white">
+                  Pre-Intermediate
                 </p>
               </div>
 
               <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute left-[29%] bottom-0"
+                onclick="redirectStage()"
+                class="flex flex-col justify-center items-center text-center gap-3 absolute left-[29%] bottom-0 cursor-pointer"
               >
-                <img src="assets/images/icon1.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">Music Quiz</p>
+                <img src="assets/images/Intermediate.png" style="width: 90px" alt="" class="" />
+                <p class="text-sm font-semibold dark:text-white">Intermediate</p>
               </div>
              
               <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[45.5%] -bottom-[3%]"
+                onclick="redirectStage()"
+                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[45.5%] -bottom-[3%] cursor-pointer"
               >
-                <img src="assets/images/icon4.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">
-                  Language Quiz
+                <img src="assets/images/Upper-Intermediate.png" style="width: 90px" alt="" class="" />
+                <p class="text-sm font-semibold dark:text-white">
+                  Upper-Intermediate
                 </p>
               </div>
               <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[31%] bottom-0"
+                onclick="redirectStage()"
+                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[31%] bottom-0 cursor-pointer"
               >
-                <img src="assets/images/icon2.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">
-                  Picture Quiz
+                <img src="assets/images/Advanced.png" style="width: 90px" alt="" class="" />
+                <p class="text-sm font-semibold dark:text-white">
+                  Advanced
                 </p>
               </div>
 
               <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[16.5%] bottom-[6.5%] rotate-[-58deg]"
+                onclick="redirectStage()"
+                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[2%] bottom-[23.5%] rotate-[-58deg] cursor-pointer"
+                style="right: 6%; bottom: 18.6%;"
               >
-                <img src="assets/images/icon2.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">Puzzle Quiz</p>
-              </div>
-              <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[8%] bottom-[13%] rotate-[-58deg]"
-              >
-                <img src="assets/images/icon4.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">Music Quiz</p>
-              </div>
-              <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute right-[2%] bottom-[23.5%] rotate-[-58deg]"
-              >
-                <img src="assets/images/icon2.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">
-                  Picture Quiz
+                <img src="assets/images/Proficiency.png" style="width: 90px" alt="" class="" />
+                <p class="text-sm font-semibold dark:text-white">
+                  Proficiency
                 </p>
-              </div>
-              <div
-                class="flex flex-col justify-center items-center text-center gap-3 absolute right-0 bottom-[34%] rotate-[-58deg]"
-              >
-                <img src="assets/images/icon1.png" style="width: 90px" alt="" class="" />
-                <p class="text-xs font-semibold dark:text-white">Puzzle Quiz</p>
               </div>
             </div>
           </div>
@@ -787,7 +777,7 @@
               </div>
               <p class="text-p1 font-semibold text-sm">$65</p>
             </a> -->
-            <a
+            <!-- <a
               href="notification-setting.html"
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
             >
@@ -804,7 +794,7 @@
               >
                 <i class="ph ph-arrow-right"></i>
               </div>
-            </a>
+            </a> -->
 
             <a
               href="settings.html"

@@ -52,11 +52,11 @@
             <h2 class="text-2xl font-semibold text-white">Details</h2>
           </div>
           <div class="flex justify-start items-center gap-2">
-            <div
+            <!-- <div
               class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24"
             >
               <i class="ph ph-paper-plane-tilt"></i>
-            </div>
+            </div> -->
             <div class="relative">
               <div
                 class="absolute top-12 right-0 z-40 modalClose duration-500 bg-white dark:bg-color9 p-5 rounded-xl shadow6 quizDetailsMoreOptionsModal"
@@ -98,27 +98,8 @@
                   <p class="text-[10px]">04.32</p>
                 </div>
                 <div class="">
-                  <p class="font-semibold text-xs">English Language Quiz</p>
+                  <p class="font-semibold text-xs">Synonyms and Antonyms Quiz</p>
                 </div>
-              </div>
-              <div class="flex justify-start items-center gap-1">
-                <p
-                  class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                >
-                  05
-                </p>
-                <p class="text-p2 text-base font-semibold dark:text-p1">:</p>
-                <p
-                  class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                >
-                  14
-                </p>
-                <p class="text-p2 text-base font-semibold dark:text-p1">:</p>
-                <p
-                  class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                >
-                  20
-                </p>
               </div>
             </div>
 
@@ -133,8 +114,9 @@
             </div>
             <button
               class="py-3 text-center bg-p2 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full"
+              onclick="window.location.href='quiz.php?quiz_id=31'"
             >
-              Join Now
+              Start
             </button>
 
             <div
@@ -142,13 +124,10 @@
             >
               <div class="flex justify-start items-center gap-1">
                 <i class="ph ph-trophy text-p1"></i>
-                <p class="text-xs">Points to earned 100</p>
+                <p class="text-xs">Earn Points: 20</p>
               </div>
               <div class="flex justify-start items-center gap-2">
                 <i class="ph ph-share-network"></i>
-                <button class="setReminderModalOpenButton">
-                  <i class="ph ph-bell-ringing"></i>
-                </button>
               </div>
             </div>
           </div>
@@ -169,13 +148,12 @@
               <i class="ph ph-scroll"></i>
             </div>
             <p class="text-sm text-color5 dark:text-bgColor5 detailsShort">
-              Challenge your of historical events, figures, and milestones with
-              our
-              <button
+              Test your vocabulary with this quiz on similar (synonyms) and opposite (antonyms) words. Sharpen your skills and express ideas more effectively!
+              <!-- <button
                 class="text-p2 underline dark:text-p1 quizDetailsShowButton"
               >
                 More
-              </button>
+              </button> -->
             </p>
             <div class="text-sm flex-col gap-2 details">
               <p class="">
@@ -223,7 +201,7 @@
           </ul>
 
           <div class="pt-8">
-            <div class="tab-content activeTab" id="tabTwo_data">
+            <div class="tab-content hiddenTab" id="tabOne_data">
               <div class="text-sm font-semibold">
                 <div
                   class="flex justify-between items-center py-2 px-5 bg-p2 text-white rounded-t-2xl"
@@ -278,20 +256,17 @@
                 </div>
               </div>
             </div>
-            <div class="tab-content hiddenTab" id="tabOne_data">
+            <div class="tab-content activeTab" id="tabTwo_data">
               <table class="text-sm font-semibold w-full text-center">
                 <tr class="bg-p2 text-white w-full">
                   <th class="rounded-tl-xl text-start">
                     <p class="py-2 pl-5">Name</p>
                   </th>
                   <th class="">
-                    <p class="py-2 text-nowrap">Final Marks</p>
+                    <p class="py-2 text-nowrap">Points</p>
                   </th>
                   <th class="">
                     <p class="py-2">Rank</p>
-                  </th>
-                  <th class="rounded-tr-xl">
-                    <p class="py-2">Winnding</p>
                   </th>
                 </tr>
                 <tr
@@ -311,7 +286,6 @@
                     <p class="py-3">40</p>
                   </td>
                   <td><p class="py-3">1</p></td>
-                  <td><p class="py-3">$226</p></td>
                 </tr>
                 <tr
                   class="w-full border-b border-color21 dark:border-color24 border-dashed"
@@ -330,7 +304,6 @@
                     <p class="py-3">40</p>
                   </td>
                   <td><p class="py-3">2</p></td>
-                  <td><p class="py-3">$226</p></td>
                 </tr>
                 <tr
                   class="w-full border-b border-color21 dark:border-color24 border-dashed"
@@ -349,7 +322,6 @@
                     <p class="py-3">40</p>
                   </td>
                   <td><p class="py-3">3</p></td>
-                  <td><p class="py-3">$226</p></td>
                 </tr>
               </table>
               <a
@@ -363,7 +335,7 @@
       </div>
     </div>
 
-    <div class="hidden inset-0 z-40 confirmationModal">
+    <!-- <div class="hidden inset-0 z-40 confirmationModal">
       <div
         class="container bg-black dark:bg-white dark:bg-opacity-30 bg-opacity-40 flex justify-center items-center h-full px-6"
       >
@@ -416,7 +388,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="hidden inset-0 z-40 setReminderModal">
       <div

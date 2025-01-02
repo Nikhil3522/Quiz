@@ -26,10 +26,12 @@ const circleSliders = document.querySelector(".circleSliders");
 
 let startX;
 let currentRotation = -1; // 0 = center, -1 = left, 1 = right
+let autoSlideInterval = null;
 
 function handleStart(e) {
   e.preventDefault();
   startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+  clearInterval(autoSlideInterval);
 }
 
 function handleMove(e) {
@@ -124,3 +126,11 @@ circleSliders.addEventListener("touchend", handleEnd);
 circleSliders.addEventListener("touchcancel", handleEnd);
 
 updatePaths("left");
+
+autoSlideInterval = setInterval(() => {
+  if(currentRotation === 1){
+    clearInterval(autoSlideInterval);
+  }else{
+    rotateRight();
+  }
+}, 2000);

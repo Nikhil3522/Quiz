@@ -25,7 +25,7 @@ const rightPaginationPath = document.querySelector("#itemRight");
 const circleSliders = document.querySelector(".circleSliders");
 
 let startX;
-let currentRotation = 0; // 0 = center, -1 = left, 1 = right
+let currentRotation = -1; // 0 = center, -1 = left, 1 = right
 
 function handleStart(e) {
   e.preventDefault();
@@ -79,6 +79,7 @@ function rotateRight() {
 }
 
 function updatePaths(position) {
+  console.log("update paths");
   switch (position) {
     case "left":
       leftPaginationPath.setAttribute("d", leftFinalPath);
@@ -121,3 +122,5 @@ circleSliders.addEventListener("touchstart", handleStart, { passive: false });
 circleSliders.addEventListener("touchmove", handleMove, { passive: false });
 circleSliders.addEventListener("touchend", handleEnd);
 circleSliders.addEventListener("touchcancel", handleEnd);
+
+updatePaths("left");

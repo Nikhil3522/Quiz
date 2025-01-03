@@ -367,6 +367,18 @@
         
       }
 
+      window.addEventListener('beforeunload', (event) => {
+        // Custom message for modern browsers
+        const confirmationMessage = 'Are you sure you want to leave this page? Changes you made may not be saved.';
+
+        // Set the returnValue property to display a confirmation dialog
+        event.returnValue = confirmationMessage;
+
+        // Some browsers also display the return value
+        return confirmationMessage;
+      });
+
+
       timer();
 
     </script>

@@ -8,10 +8,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/images/letter-w.png" type="image/x-icon" />
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="manifest" href="manifest.json" />
-  <title>Quiz 1 - Quizio PWA HTML Template</title>
+  <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet">
 </head>
 
@@ -30,7 +30,10 @@
       <button onclick="closeWarning()" class="sidebarModalCloseButton absolute top-1 right-3 border rounded-full border-p1 flex justify-center items-center p-1 text-white">
         <i class="ph ph-x"></i>
       </button>
-      <h2 style="text-align: center; color: white; font-weight: 500; text-transform: uppercase; margin-bottom: 5px; font-size: 20px;"><?= $_GET['quiz_name'] ?></h2>
+      <?php
+        $quiz_name = $_GET['quiz_name'];
+      ?>
+      <h2 style="text-align: center; color: white; font-weight: 500; text-transform: uppercase; margin-bottom: 5px; font-size: 20px;"><?= $quiz_name ?></h2>
       <div class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9" style="width: 100px; margin: auto;">
         <p class="text-xs font-semibold text-nowrap"><span class="current_question_number"></span> of <span class="total_question_number"></span></p>
       </div>
@@ -55,7 +58,13 @@
 
               <circle id="timer-circle" cx="16" cy="16" r="15.9155" style="stroke-dashoffset: 0px"
                 class="progress-bar__progress js-progress-bar" />
-                <p id="timeDisplay" style="font-size: 20px; font-weight: 400; text-align: center; width: 18px;" class="text-lg font-bold absolute top-[26px] left-[30px]">20</p>
+                <p id="timeDisplay" style="font-size: 20px; font-weight: 400; text-align: center; width: 18px; margin-left: <?php if(isset($quiz_name) && $quiz_name != ""){ echo "0px"; } else{ echo "-10px";}?>;" class="text-lg font-bold absolute top-[26px] left-[30px]">
+                  <?php if(isset($quiz_name) && $quiz_name != ""){ ?>
+                    20
+                  <?php }else{?>
+                    5:00
+                  <?php }?>
+                </p>
             </svg>
           </div>
         </div>
@@ -118,6 +127,7 @@
       var userAnswer = [];
       var tempAnswer = ""; // In this variable store the answer of current question
       let previousTime = null;
+      let quizName = "<?= $quiz_name ?>"
 
       $.ajax({
         url: 'api.php',
@@ -295,23 +305,59 @@
       }
 
       function timer(){
-        let maxTime = 20; //29 sec
-        let strokeValue = 0;
 
-        clearInterval(previousTime);
+        if(quizName === ""){
+          if(previousTime) return;
 
-        previousTime = setInterval(() => {
+          let maxTime = 5 * 60; // 5 min
+          let strokeValue = 0;
 
-          if(maxTime === 0){
-            displayQuestion();
-            maxTime = 20;
-          }
+          clearInterval(previousTime);
 
-          $('#timeDisplay').text(maxTime--);
-          $('#timer-circle').css('stroke-dashoffset', `${strokeValue}px`);
-          
-          strokeValue += 5;
-        }, 1000);
+          previousTime = setInterval(() => {
+
+            if(maxTime === 0){
+              getCorrectAnswer();
+            }
+
+            let minutes = 0;
+            let second = maxTime % 60;
+            if(second < 10){
+              second = `0${second}`;
+            }
+
+            if(maxTime > 60){
+              minutes = Math.floor(maxTime/60);
+            }
+
+            $('#timeDisplay').text(`${minutes}:${second}`);
+            $('#timer-circle').css('stroke-dashoffset', `${strokeValue}px`);
+            
+            strokeValue += 0.335;
+            maxTime--;
+          }, 1000);
+
+        }else{
+          let maxTime = 20; //29 sec
+          let strokeValue = 0;
+
+          clearInterval(previousTime);
+
+          previousTime = setInterval(() => {
+
+            if(maxTime === 0){
+              displayQuestion();
+              maxTime = 20;
+            }
+
+            $('#timeDisplay').text(maxTime--);
+            $('#timer-circle').css('stroke-dashoffset', `${strokeValue}px`);
+            
+            strokeValue += 5;
+          }, 1000);
+        }
+
+        
       }
 
       timer();

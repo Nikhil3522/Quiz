@@ -82,8 +82,8 @@
               ?>
             <div class="flex justify-start items-center gap-3">
               <div class="rounded-full overflow-hidden">
-                <span style="display: block; background: #ffce85; height: 45px; width: 45px; border-radius: 35px; text-align: center; line-height: 45px; font-size: 25px; color: #5c46f6; font-weight: 600;"><?= substr($category_name, 0, 1); ?></span>
-
+                <!-- <span style="display: block; background: #ffce85; height: 45px; width: 45px; border-radius: 35px; text-align: center; line-height: 45px; font-size: 25px; color: #5c46f6; font-weight: 600;"><?= substr($category_name, 0, 1); ?></span> -->
+                <img src="assets/images/<?= $category_name ?>.png" style="width: 45px" alt="" class="" />
               </div>
               <div class="">
                 <div class="flex justify-start items-center gap-1">

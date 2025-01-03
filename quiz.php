@@ -287,7 +287,8 @@
       function closeWarning(){
         
 
-        let confirmValue = confirm("If you close the quiz now, your responses will not be saved. Are you sure you want to close the quiz?");
+        // let confirmValue = confirm("If you close the test now, your responses will not be saved.                 Are you sure you want to close the test?");
+        let confirmValue = confirm("If you close the test now, your responses will not be saved.\nAre you sure you want to close the test?");
         if (confirmValue === true) {
           window.history.back()
         }

@@ -62,7 +62,7 @@
                   <?php if(isset($quiz_name) && $quiz_name != ""){ ?>
                     20
                   <?php }else{?>
-                    5:00
+                    0:00
                   <?php }?>
                 </p>
             </svg>
@@ -310,7 +310,13 @@
           if(previousTime) return;
 
           let maxTime = 5 * 60; // 5 min
+
+          <?php if (isset($_GET['max_limit'])): ?>
+            maxTime = <?php echo intval($_GET['max_limit']) * 60; ?>; // Safely pass and use the PHP value
+          <?php endif; ?>
+
           let strokeValue = 0;
+          let strokeDivide = maxTime;
 
           clearInterval(previousTime);
 
@@ -318,6 +324,7 @@
 
             if(maxTime === 0){
               getCorrectAnswer();
+              return;
             }
 
             let minutes = 0;
@@ -333,7 +340,7 @@
             $('#timeDisplay').text(`${minutes}:${second}`);
             $('#timer-circle').css('stroke-dashoffset', `${strokeValue}px`);
             
-            strokeValue += 0.335;
+            strokeValue += (100 / strokeDivide);
             maxTime--;
           }, 1000);
 

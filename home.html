@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="shortcut icon"
-      href="assets/images/logo.png"
+      href="assets/images/letter-w.png"
       type="image/x-icon"
     />
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Home - Quizio PWA HTML Template</title>
+    <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="-z-20">
     <div
@@ -177,7 +177,7 @@
           >
             <div class="text-white font-semibold !leading-none pl-2">
               <p class="">Learn With</p>
-              <p class="text-[36px] py-2 pl-2">Contests</p>
+              <p class="text-[36px] py-2 pl-2">Tests</p>
             </div>
             <div class="">
               <img src="assets/images/invite_illus.png" alt="" />
@@ -189,7 +189,7 @@
           <div class="flex justify-between items-center">
             <div class="flex justify-start items-center gap-2">
               <i class="ph-fill text-xl ph-trophy text-p1"></i>
-              <h3 class="text-xl font-semibold">Current Contest</h3>
+              <h3 class="text-xl font-semibold">Current Tests</h3>
             </div>
             <a href="current-contest.html" class="text-p1 font-semibold text-sm"
               >See All</a
@@ -197,48 +197,62 @@
           </div>
           <div class="pt-5">
             <a
-              href="quiz-details.html"
+              href="quiz-details.php?max_limit=5"
               class="rounded-2xl overflow-hidden shadow2 block"
             >
               <div
                 class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"
               >
                 <div class="flex justify-start items-center gap-3">
-                  <p class="font-medium">Synonyms and Antonyms Quiz</p>
+                  <p class="font-medium">Synonyms and Antonyms Test</p>
                 </div>
               </div>
               <div class="p-5 bg-white dark:bg-color10">
-                <div class="flex justify-start items-center gap-2">
-                  <div
-                    class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                  >
-                    <p class="font-semibold text-xs">19 Jun</p>
-                    <p class="text-[10px]">04.32</p>
+                <div class="flex justify-between items-center text-xs">
+                  <div class="flex gap-2">
+                    <p>Max Time:</p>
+                    <p class="font-semibold"> 5 min</p>
                   </div>
-                  <div class="">
-                    <p class="font-semibold text-sm">Browse By Category</p>
+                  <div class="flex gap-3">
+                    <p>Questions:</p>
+                    <p class="font-semibold"> 10</p>
                   </div>
                 </div>
                 <div
-                  class="flex justify-between items-center text-xs py-5 border-b border-dashed border-black border-opacity-10 dark:border-color24"
+                  class="flex justify-between items-center gap-2 text-xs py-3 text-nowrap pt-5 pb-5"
                 >
-                  <div class="">
-                    <p>Max Time</p>
-                    <p class="font-semibold">5 min</p>
+                  <p>30 left</p>
+                  <div
+                    class="relative bg-p2 dark:bg-p1 dark:bg-opacity-10 bg-opacity-10 h-1 w-full rounded-full after:absolute after:h-1 after:w-[40%] after:bg-p2 after:dark:bg-p1 after:rounded-full"
+                  ></div>
+                  <p>100 spots</p>
+                </div>
+                <div
+                  class="border-b border-dashed border-black dark:border-color24 border-opacity-10 pb-5 flex justify-between items-center text-xs"
+                >
+                  <div class="flex justify-start items-center gap-2">
+                    <div
+                      class="text-white flex justify-center items-center p-2 bg-p1 rounded-full"
+                    >
+                      <i class="ph ph-trophy"></i>
+                    </div>
+                    <div class="">
+                      <p>Earn Points</p>
+                      <p class="font-semibold">20</p>
+                    </div>
                   </div>
-                  <div class="">
-                    <p>Ques</p>
-                    <p class="font-semibold">10</p>
-                  </div>
-                  <div class="">
-                    <p>Earn Points</p>
-                    <p class="font-semibold">20</p>
+                  <div class="flex justify-start items-center gap-2">
+                    <button
+                      class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
+                    >
+                      Join Now
+                    </button>
                   </div>
                 </div>
                 <div class="pt-5 flex justify-between items-center">
                   <div class="flex justify-start items-center gap-1">
                     <i class="ph ph-brain text-p2"></i>
-                    <p class="text-xs">Details</p>
+                    <p class="text-xs">Test Details</p>
                   </div>
                   <div class="flex justify-start items-center gap-2">
                     <!-- <i class="ph ph-bell-ringing"></i> -->
@@ -253,10 +267,13 @@
           <div class="flex justify-between items-center pr-6">
             <div class="flex justify-start items-center gap-2">
               <i class="ph-fill text-xl ph-trophy text-p1"></i>
-              <h3 class="text-xl font-semibold">Best Players</h3>
+              <h3 class="text-xl font-semibold">Best Minds</h3>
             </div>
-            <a href="players.html" class="text-p1 font-semibold text-sm"
-              >See All</a
+            <a 
+              class="text-p1 font-semibold text-sm"
+            >
+            <!-- href="players.html" -->
+            See All</a
             >
           </div>
           <div class="pt-5 swiper best-player-slider">
@@ -396,7 +413,8 @@
         <div class="pt-12 pl-6">
           <div class="flex justify-between items-center pr-6">
             <div class="flex justify-start items-center gap-2">
-              <h3 class="text-xl font-semibold">Upcoming Contest</h3>
+              <i class="ph-fill text-xl ph-trophy text-p1"></i>
+              <h3 class="text-xl font-semibold">Upcoming Tests</h3>
             </div>
             <a
               href="upcoming-contest.html"
@@ -407,26 +425,18 @@
           <div class="pt-5 swiper upcoming-contest-slider">
             <div class="swiper-wrapper">
               <a
-                href="quiz-details.html"
+                href="quiz-details.php?upcoming=true"
                 class="rounded-2xl overflow-hidden shadow2 swiper-slide border border-color21"
               >
+              <div
+                class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"
+              >
+                <div class="flex justify-start items-center gap-3">
+                  <p class="font-medium">Singular vs. Plural Forms Test</p>
+                </div>
+              </div>
                 <div class="p-5 bg-white dark:bg-color10">
-                  <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                      >
-                        <p class="font-semibold text-xs">19 Jun</p>
-                        <p class="text-[10px]">04.32</p>
-                      </div>
-                      <div class="">
-                        <p class="font-semibold text-xs">
-                          English Language Quiz
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex justify-between items-center text-xs pt-5">
+                  <div class="flex justify-between items-center text-xs">
                     <div class="flex gap-2">
                       <p>Max Time</p>
                       <p class="font-semibold">- 5 min</p>
@@ -439,7 +449,7 @@
                   <div
                     class="flex justify-between items-center gap-2 text-xs py-3 text-nowrap"
                   >
-                    <p>30 left</p>
+                    <p>42 left</p>
                     <div
                       class="relative bg-p2 dark:bg-p1 dark:bg-opacity-10 bg-opacity-10 h-1 w-full rounded-full after:absolute after:h-1 after:w-[40%] after:bg-p2 after:dark:bg-p1 after:rounded-full"
                     ></div>
@@ -479,27 +489,21 @@
                 </div>
               </a>
               <a
-                href="quiz-details.html"
+                href="quiz-details.php?upcoming=true"
                 class="rounded-2xl overflow-hidden shadow2 swiper-slide border border-color21"
               >
-                <div class="p-5 bg-white dark:bg-color10">
-                  <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                      >
-                        <p class="font-semibold text-xs">20 Jun</p>
-                        <p class="text-[10px]">05.25</p>
-                      </div>
-                      <div class="">
-                        <p class="font-semibold text-xs">China Language Quiz</p>
-                      </div>
-                    </div>
+                <div
+                  class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"
+                >
+                  <div class="flex justify-start items-center gap-3">
+                    <p class="font-medium">Likes and Dislike Test</p>
                   </div>
-                  <div class="flex justify-between items-center text-xs pt-5">
+                </div>
+                <div class="p-5 bg-white dark:bg-color10">
+                  <div class="flex justify-between items-center text-xs">
                     <div class="flex gap-2">
                       <p>Max Time</p>
-                      <p class="font-semibold">- 5 min</p>
+                      <p class="font-semibold">- 15 min</p>
                     </div>
                     <div class="flex gap-3">
                       <p>Max Ques</p>
@@ -509,7 +513,7 @@
                   <div
                     class="flex justify-between items-center gap-2 text-xs py-3 text-nowrap"
                   >
-                    <p>45 left</p>
+                    <p>25 left</p>
                     <div
                       class="relative bg-p2 dark:bg-p1 dark:bg-opacity-10 bg-opacity-10 h-1 w-full rounded-full after:absolute after:h-1 after:w-[20%] after:bg-p2 after:dark:bg-p1 after:rounded-full"
                     ></div>
@@ -555,7 +559,7 @@
     </div>
 
     <!-- Bottom Tab Start -->
-    <div class="fixed bottom-0 left-0 right-0 z-40">
+    <!-- <div class="fixed bottom-0 left-0 right-0 z-40">
       <div
         class="container bg-p2 px-6 py-3 rounded-t-2xl flex justify-around items-center dark:bg-p1"
       >
@@ -614,7 +618,7 @@
           <p class="text-xs text-white font-semibold dark:text-color10">Contests</p>
         </a>
       </div>
-    </div>
+    </div> -->
     <!-- Bottom Tab End -->
 
     <!-- Sidebar Start -->
@@ -676,7 +680,7 @@
             <!-- href="upgrade-premium.html" -->
               <div class="flex justify-start items-center gap-3">
                 <img src="assets/images/premium-badge.png" alt="" />
-                <p class="font-semibold">Learn with Contests</p>
+                <p class="font-semibold">Learn with Tests</p>
               </div>
               <div class="flex justify-center items-center rounded-full">
                 <i class="ph ph-arrow-right"></i>
@@ -916,9 +920,9 @@
                   Cancel
                 </button>
                 <a
-                  href="sign-in.html"
                   class="bg-p2 rounded-full py-3 text-white text-sm font-semibold text-center block dark:bg-p1 w-full"
                 >
+                <!-- href="sign-in.html" -->
                   Yes, Logout
                 </a>
               </div>

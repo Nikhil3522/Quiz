@@ -13,6 +13,31 @@
   <link rel="manifest" href="manifest.json" />
   <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet">
+  <style>
+    #video_container{
+        display: none;
+        background: #bfbffd87;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+        box-shadow: 0px 0px 5px gray;
+    }
+
+    
+
+    @media only screen and (max-width: 600px) {
+      #video_container{
+        width: 95%
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -37,6 +62,19 @@
         </div>
       </div>
       <!-- Page Title End -->
+
+        <div id="video_container">
+            <button style="margin-left: auto; font-size: 25px; padding-right: 15px;" onclick="hideVideoContainer()">
+                <i class="ph ph-x text-p2"></i>
+            </button>
+            <video width="320" height="240" controls="" style="width: 95%;" autoplay>
+                <source src="assets/video/Video_Nosrat%20Course%201.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+
+
       <div class="px-6 mt-5">
         <div class="pt-5">
           <div class="flex flex-col gap-4">
@@ -73,7 +111,7 @@
                 
 
                 <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="showVideoContainer()">
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
@@ -120,7 +158,7 @@
                 </div>
 
                 <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="showVideoContainer()">
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
@@ -167,7 +205,7 @@
                 </div>
                   
                 <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="showVideoContainer()">
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
@@ -204,6 +242,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script>
+  <script>
+    function hideVideoContainer(){
+        document.getElementById('video_container').style.display = 'none';
+    }
+
+    function showVideoContainer(){
+        document.getElementById('video_container').style.display = 'flex';
+        if (!currentAudio.paused){
+          pauseAudio();
+        }
+    }  
+  </script>
 </body>
 
 <!-- Mirrored from quizio-pwa-html-app.vercel.app/upcoming-contest.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:05 GMT -->

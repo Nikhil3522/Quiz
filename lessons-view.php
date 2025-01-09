@@ -30,6 +30,10 @@
         box-shadow: 0px 0px 5px gray;
     }
 
+    #notes_container{
+      max-height: 95vh;
+    }
+
     #audio_container {
       display: none;
       background: #5c47f6;
@@ -68,6 +72,25 @@
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    #pdf-viewer {
+      border: 1px solid #ccc;
+      width: 100%;
+      overflow: auto;
+      text-align: center;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+    .controls {
+      margin: 10px 0;
+      text-align: center;
+    }
+    button {
+      padding: 5px 10px;
+      margin: 0 5px;
     }
 
     @media only screen and (max-width: 600px) {
@@ -111,16 +134,35 @@
             </video>
         </div>
 
-        <div id="notes_container">
+        <div id="notes_container" style="background: #bfbffd; padding: 0;">
           <button style="margin-left: auto; font-size: 25px; padding-right: 15px;" onclick="hideNotesContainer()">
             <i class="ph ph-x text-p2"></i>
           </button>
           <!-- <iframe src="assets/pdf/PDF_Nosrat%20Course1.pdf" width="50%" height="550px"></iframe> -->
-          <div class="pdf-container">
-            <iframe src="assets/pdf/PDF_Nosrat%20Course1.pdf"></iframe>
-          </div>
+            <!-- <iframe src="assets/pdf/PDF_Nosrat%20Course1.pdf"></iframe> -->
+            <div id="pdf-viewer">
+              <canvas id="pdf-canvas" style="width: 98%"></canvas>
+            </div>
+            <div class="controls">
+              <button id="prev">Previous</button>
+              <span><span id="current-page">1</span> / <span id="total-pages">0</span></span>
+              <button id="next">Next</button>
+            </div>
+            <button onclick="hideNotesContainer()">Close</button>
         </div>
 
+          <div id="audio_container" class="container ">
+            <div style="display: flex; justify-content: space-between; padding-left: 20px; padding-right: 20px; margin-top: 5px;">
+              <img id="audioThumbnail" src="assets/images/lesson-logo.png" width="40px"/>  
+              <p class="text-sm" style="text-align: center;">Basic Travel Conversation</p>
+              <div style="display: flex; gap: 5px;">
+                <p class="text-xs"><span id="audioDuration">0:00</span>/<span id="audioTotalDuration">0:00</span></p>
+                <button onclick="pauseAudio()" id="audioPlayBtn">
+                  <i class="ph ph-pause text-p2"></i>
+                </button>
+              </div>
+            </div>
+          </div>
 
 
       <div class="px-6 mt-5">
@@ -214,7 +256,7 @@
                         <i class="ph ph-headphones text-p2"></i>
                         <p class="text-xs">Audio lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1" onclick="window.open('assets/pdf/PDF_Nosrat%20Course1.pdf', '_blank');">
+                    <div class="flex justify-start items-center gap-1" onclick="showNotesContainer()">
                         <i class="ph ph-note text-p2"></i>
                         <p class="text-xs">Notes</p>
                     </div>
@@ -261,7 +303,7 @@
                         <i class="ph ph-headphones text-p2"></i>
                         <p class="text-xs">Audio lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1" onclick="window.open('assets/pdf/PDF_Nosrat%20Course1.pdf', '_blank');">
+                    <div class="flex justify-start items-center gap-1" onclick="showNotesContainer()">
                         <i class="ph ph-note text-p2"></i>
                         <p class="text-xs">Notes</p>
                     </div>
@@ -366,7 +408,77 @@
         if (!currentAudio.paused){
           pauseAudio();
         }
-    }  
+    }
+
+    function showNotesContainer(){
+      document.getElementById('notes_container').style.display = 'flex';
+    }
+
+    function hideNotesContainer(){
+      document.getElementById('notes_container').style.display = 'none';
+    }
+        
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    const url = 'assets/pdf/PDF_Nosrat%20Course1.pdf'; // Path to your PDF file
+
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+    let pdfDoc = null;     // The loaded PDF document
+    let currentPage = 1;   // Current page number
+    let totalPages = 0;    // Total number of pages
+    let scale = 1.5;       // Scale for rendering
+
+    const canvas = document.getElementById('pdf-canvas');
+    const ctx = canvas.getContext('2d');
+
+    const currentPageElem = document.getElementById('current-page');
+    const totalPagesElem = document.getElementById('total-pages');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+
+    // Render the specified page
+    function renderPage(pageNum) {
+      pdfDoc.getPage(pageNum).then(page => {
+        const viewport = page.getViewport({ scale });
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        page.render(renderContext).promise.then(() => {
+          currentPageElem.textContent = pageNum;
+        });
+      });
+    }
+
+    // Load the PDF and initialize controls
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+      pdfDoc = pdf;
+      totalPages = pdf.numPages;
+      totalPagesElem.textContent = totalPages;
+      renderPage(currentPage);
+    }).catch(error => {
+      console.error('Error loading PDF:', error);
+    });
+
+    // Navigate to the previous page
+    prevButton.addEventListener('click', () => {
+      if (currentPage <= 1) return;
+      currentPage--;
+      renderPage(currentPage);
+    });
+
+    // Navigate to the next page
+    nextButton.addEventListener('click', () => {
+      if (currentPage >= totalPages) return;
+      currentPage++;
+      renderPage(currentPage);
+    });
   </script>
 </body>
 

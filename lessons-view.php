@@ -92,6 +92,9 @@
       padding: 5px 10px;
       margin: 0 5px;
     }
+    #audioPlayBtn i{
+      margin-left: -3px;
+    }
 
     @media only screen and (max-width: 600px) {
       #video_container, #notes_container{
@@ -128,7 +131,7 @@
             <button style="margin-left: auto; font-size: 25px; padding-right: 15px;" onclick="hideVideoContainer()">
                 <i class="ph ph-x text-p2"></i>
             </button>
-            <video width="320" height="240" controls="" style="width: 95%;" autoplay>
+            <video id="videoTag" width="320" height="240" controls="" style="width: 95%;" autoplay>
                 <source src="assets/video/Video_Nosrat%20Course%201.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -337,6 +340,7 @@
     const audioDuration = $('#audioDuration');
     const audioThumbnail = $('#audioThumbnail');
     const audioPlayBtn = $('#audioPlayBtn');
+    const videoTag = document.getElementById('videoTag');
     var degree = 0;
     let currentAudio = null;
 
@@ -401,11 +405,14 @@
 
     function hideVideoContainer(){
         document.getElementById('video_container').style.display = 'none';
+        if (videoTag) {
+          videoTag.pause(); // Pause the video
+        }
     }
 
     function showVideoContainer(){
         document.getElementById('video_container').style.display = 'flex';
-        if (!currentAudio.paused){
+        if (currentAudio && !currentAudio.paused){
           pauseAudio();
         }
     }

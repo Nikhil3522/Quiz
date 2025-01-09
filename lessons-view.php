@@ -14,7 +14,7 @@
   <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet">
   <style>
-    #video_container{
+    #video_container, #notes_container{
         display: none;
         background: #bfbffd87;
         padding-top: 30px;
@@ -30,10 +30,48 @@
         box-shadow: 0px 0px 5px gray;
     }
 
-    
+    #audio_container {
+      display: none;
+      background: #5c47f6;
+      color: white;
+      min-height: 50px;
+      position: fixed;
+      z-index: 10;
+      bottom: 0;
+      width: 100%; /* Ensure it spans the width of the viewport */
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    #audio_container p{
+      line-height: 40px;
+    }
+    #audio_container button{
+      background: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      margin-top: 5px;
+    }
+    #audioThumbnail {
+      transition: transform 0.2s ease-in-out; /* Smooth transition for transform */
+    }
+
+    .pdf-container {
+      width: 90%; /* Adjust as needed */
+      max-width: 1200px; /* Maximum width for large screens */
+      height: 90vh; /* Adjust height relative to viewport */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: 1px solid #ccc;
+    }
+
+    .pdf-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
     @media only screen and (max-width: 600px) {
-      #video_container{
+      #video_container, #notes_container{
         width: 95%
       }
     }
@@ -71,6 +109,16 @@
                 <source src="assets/video/Video_Nosrat%20Course%201.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+        </div>
+
+        <div id="notes_container">
+          <button style="margin-left: auto; font-size: 25px; padding-right: 15px;" onclick="hideNotesContainer()">
+            <i class="ph ph-x text-p2"></i>
+          </button>
+          <!-- <iframe src="assets/pdf/PDF_Nosrat%20Course1.pdf" width="50%" height="550px"></iframe> -->
+          <div class="pdf-container">
+            <iframe src="assets/pdf/PDF_Nosrat%20Course1.pdf"></iframe>
+          </div>
         </div>
 
 
@@ -115,11 +163,11 @@
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="showAudioContainer()">
                         <i class="ph ph-headphones text-p2"></i>
                         <p class="text-xs">Audio lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="showNotesContainer()">
                         <i class="ph ph-note text-p2"></i>
                         <p class="text-xs">Notes</p>
                     </div>
@@ -162,11 +210,11 @@
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="showAudioContainer()">
                         <i class="ph ph-headphones text-p2"></i>
                         <p class="text-xs">Audio lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="window.open('assets/pdf/PDF_Nosrat%20Course1.pdf', '_blank');">
                         <i class="ph ph-note text-p2"></i>
                         <p class="text-xs">Notes</p>
                     </div>
@@ -209,11 +257,11 @@
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="showAudioContainer()">
                         <i class="ph ph-headphones text-p2"></i>
                         <p class="text-xs">Audio lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1">
+                    <div class="flex justify-start items-center gap-1" onclick="window.open('assets/pdf/PDF_Nosrat%20Course1.pdf', '_blank');">
                         <i class="ph ph-note text-p2"></i>
                         <p class="text-xs">Notes</p>
                     </div>
@@ -243,6 +291,72 @@
   <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script>
   <script>
+    const audioContainer = $('#audio_container');
+    const audioDuration = $('#audioDuration');
+    const audioThumbnail = $('#audioThumbnail');
+    const audioPlayBtn = $('#audioPlayBtn');
+    var degree = 0;
+    let currentAudio = null;
+
+    function showAudioContainer() {
+      // audioContainer.css('display', 'block');
+      audioContainer.fadeIn(400);
+      playAudio();
+    }
+
+    function playAudio(audioUrl = "assets/audio/Audio_Nosrat%20Course1.mp3") {
+      if(currentAudio){
+        currentAudio.pause();
+        audioPlayBtn.html('<i class="ph ph-play text-p2"></i>');
+      }
+
+      currentAudio = new Audio(audioUrl); // Create a new Audio object with the given URL
+      currentAudio.play()                       // Play the audio
+        .then(() => {
+          audioPlayBtn.html('<i class="ph ph-pause text-p2"></i>');
+          getAudioDuration();
+          updateAudioDuration(); // Start tracking the audio progress
+        })
+        .catch(error => {
+          console.error('Error playing audio:', error);
+      });
+    }
+
+    function pauseAudio(){
+      if (currentAudio.paused) {
+        currentAudio.play();
+        audioPlayBtn.html('<i class="ph ph-pause text-p2"></i>');
+      }else{
+        currentAudio.pause();
+        audioPlayBtn.html('<i class="ph ph-play text-p2"></i>');
+      }
+    }
+
+    function getAudioDuration() {
+      const totalSeconds = Math.floor(currentAudio.duration); // Get total duration in seconds
+      const minutes = Math.floor(totalSeconds / 60);           // Calculate minutes
+      const seconds = totalSeconds % 60;                       // Calculate seconds
+      const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`; // Format as mm:ss
+
+      $('#audioTotalDuration').text(formattedTime)
+    }
+
+    // Function to update the current playback time
+    function updateAudioDuration() {
+      // Track progress using the 'timeupdate' event
+      currentAudio.addEventListener('timeupdate', () => {
+        const currentTime = Math.floor(currentAudio.currentTime);
+        const minutes = Math.floor(currentTime / 60);
+        const seconds = currentTime % 60;
+        const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        audioDuration.text(formattedTime);
+        // audioThumbnail.css('rotate', `${degree}deg`);
+        audioThumbnail.css('transform', `rotate(${degree}deg)`);
+        degree += 5;
+        // console.log('Audio updated Played:', formattedTime);
+      });
+    }
+
     function hideVideoContainer(){
         document.getElementById('video_container').style.display = 'none';
     }

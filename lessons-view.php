@@ -350,6 +350,14 @@
       playAudio();
     }
 
+    function hideAudioContainer() {
+      // audioContainer.css('display', 'block');
+      if(currentAudio){
+        currentAudio.pause();
+      }
+      audioContainer.fadeOut(400);
+    }
+
     function playAudio(audioUrl = "assets/audio/Audio_Nosrat%20Course1.mp3") {
       if(currentAudio){
         currentAudio.pause();
@@ -419,6 +427,8 @@
 
     function showNotesContainer(){
       document.getElementById('notes_container').style.display = 'flex';
+      hideVideoContainer();
+      hideAudioContainer();
     }
 
     function hideNotesContainer(){

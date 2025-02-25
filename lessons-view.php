@@ -1,3 +1,16 @@
+<?php
+require_once("config.php");
+$instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
+// $getinstituteName = mysqli_query($conn, "select instituteName from institute where id='$instituteId'");
+// $fetchinstituteName = mysqli_fetch_object($getinstituteName);
+// $instituteName = $fetchinstituteName->instituteName;
+
+$courseId = isset($_REQUEST['cid']) ? $_REQUEST['cid'] : '';
+$getcourseName = mysqli_query($conn, "select courseName,instituteName from courses where id='$courseId'");
+$fetchcourseName = mysqli_fetch_object($getcourseName);
+$instituteName = $fetchcourseName->instituteName;
+$courseName = $fetchcourseName->courseName;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,7 +131,7 @@
     <div class="relative z-10">
       <div class="flex justify-between items-center gap-4 px-6">
         <div class="flex justify-start items-center gap-4">
-          <a href="course-view.php"
+          <a href="course-view.php?iid=<?php echo $instituteId; ?>"
             class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10">
             <i class="ph ph-caret-left"></i>
           </a>
@@ -132,7 +145,7 @@
                 <i class="ph ph-x text-p2"></i>
             </button>
             <video id="videoTag" width="320" height="240" controls="" style="width: 95%;" autoplay>
-                <source src="assets/video/Video_Nosrat%20Course%201.mp4" type="video/mp4">
+                <source src="" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -172,10 +185,13 @@
         <div class="pt-5">
           <div class="flex flex-col gap-4">
 
+          <?php $getLessons = mysqli_query($conn, "select * from lessons where active=1 and instituteName='$instituteName' and courseName='$courseName'");
+              while($fetchLessons = mysqli_fetch_object($getLessons)){
+          ?>
             <a href="#" class="rounded-2xl overflow-hidden shadow2">
                 <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: #bfbffd;">
                     <div class="flex justify-start items-center gap-3">
-                    <p class="font-medium">Lesson 1: Basic Travel Conversation</p>
+                    <p class="font-medium"><?php echo $fetchLessons->lessonName; ?></p>
                     </div>
                 </div>
                 <div class="p-5 bg-white dark:bg-color10">
@@ -184,16 +200,16 @@
                         <img src="assets/images/lesson-logo.png" width="50px"/>
                         <div class="">
                             <p class="font-semibold text-xs">
-                                By John Doe
+                              By <?php echo $fetchLessons->teacherName; ?>
                             </p>
-                            <p class="text-xs">Lesson Level: Beginner</p>
+                            <p class="text-xs">Lesson Level: <?php echo $fetchLessons->lessonLevel; ?></p>
                         </div>
                     </div>
                   </div>
 
 
                 <div class="border-b border-dashed border-black dark:border-color24 border-opacity-10 pb-5 text-xs mt-5">
-                    <p class="text-xs" style="text-align: justify;">This lesson covers essential phrases for travel  such as greetings  asking for directions  and ordering food.</p>
+                    <p class="text-xs" style="text-align: justify;"><?php echo $fetchLessons->descriptionBrief; ?></p>
 
                     <div class="flex justify-start items-center gap-1 mt-5">
                         
@@ -204,23 +220,24 @@
                 
 
                 <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1" onclick="showVideoContainer()">
+                    <div class="flex justify-start items-center gap-1" onclick="showVideoContainer('<?php echo $fetchLessons->video; ?>')">
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1" onclick="showAudioContainer()">
+                    <div class="flex justify-start items-center gap-1" onclick="showAudioContainer('<?php echo $fetchLessons->audio; ?>')">
                         <i class="ph ph-headphones text-p2"></i>
                         <p class="text-xs">Audio lesson</p>
                     </div>
-                    <div class="flex justify-start items-center gap-1" onclick="showNotesContainer()">
+                    <div class="flex justify-start items-center gap-1" onclick="showNotesContainer('<?php echo $fetchLessons->pdf; ?>')">
                         <i class="ph ph-note text-p2"></i>
                         <p class="text-xs">Notes</p>
                     </div>
                 </div>
                 </div>
             </a>
+          <?php } ?>
 
-            <a href="#" class="rounded-2xl overflow-hidden shadow2">
+            <!-- <a href="#" class="rounded-2xl overflow-hidden shadow2">
                 <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: #bfbffd;">
                     <div class="flex justify-start items-center gap-3">
                     <p class="font-medium">Lesson 2: Basic Travel Conversation
@@ -312,7 +329,7 @@
                     </div>
                 </div>
                   
-                <!-- <div class="pt-5 flex justify-between items-center">
+                <!- <div class="pt-5 flex justify-between items-center">
                   <div class="flex justify-start items-center gap-1">
                     
                     <p class="text-xs"><span style="font-weight: 600;">Specialization</span>: Conversation</p>
@@ -322,10 +339,10 @@
                         Start
                     </button>
                   </div>
-                </div> -->
+                </div> ->
 
                 </div>
-            </a>
+            </a> -->
           </div>
         </div>
       </div>
@@ -344,10 +361,10 @@
     var degree = 0;
     let currentAudio = null;
 
-    function showAudioContainer() {
+    function showAudioContainer(audioSrc) {
       // audioContainer.css('display', 'block');
       audioContainer.fadeIn(400);
-      playAudio();
+      playAudio(audioSrc);
     }
 
     function hideAudioContainer() {
@@ -358,13 +375,14 @@
       audioContainer.fadeOut(400);
     }
 
-    function playAudio(audioUrl = "assets/audio/Audio_Nosrat%20Course1.mp3") {
+    function playAudio(audioUrl) {
       if(currentAudio){
         currentAudio.pause();
         audioPlayBtn.html('<i class="ph ph-play text-p2"></i>');
       }
 
-      currentAudio = new Audio(audioUrl); // Create a new Audio object with the given URL
+      console.log("audioUrl", audioUrl)
+      currentAudio = new Audio(`https://roshan1.b-cdn.net/${audioUrl}`); // Create a new Audio object with the given URL
       currentAudio.play()                       // Play the audio
         .then(() => {
           audioPlayBtn.html('<i class="ph ph-pause text-p2"></i>');
@@ -418,15 +436,21 @@
         }
     }
 
-    function showVideoContainer(){
-        document.getElementById('video_container').style.display = 'flex';
-        if (currentAudio && !currentAudio.paused){
-          pauseAudio();
-        }
+    function showVideoContainer(videoSrc){
+      let videoElement = document.getElementById('video_container');
+      videoTag.querySelector('source').src = `https://roshan1.b-cdn.net/${videoSrc}`;
+      videoElement.style.display = 'flex';
+      videoTag.load(); // Reload the video to apply new source
+      videoTag.play();
+
+      if (currentAudio && !currentAudio.paused){
+        pauseAudio();
+      }
     }
 
-    function showNotesContainer(){
+    function showNotesContainer(notesUrl){
       document.getElementById('notes_container').style.display = 'flex';
+      notesDynamicUrl(`https://roshan1.b-cdn.net/${notesUrl}`);
       hideVideoContainer();
       hideAudioContainer();
     }
@@ -438,64 +462,68 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
-    const url = 'assets/pdf/PDF_Nosrat%20Course1.pdf'; // Path to your PDF file
 
-    const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    function notesDynamicUrl(notesURL){
+      console.log("notesUrl", notesURL);
+      // var notesURL = null; // Path to your PDF file
 
-    let pdfDoc = null;     // The loaded PDF document
-    let currentPage = 1;   // Current page number
-    let totalPages = 0;    // Total number of pages
-    let scale = 1.5;       // Scale for rendering
+      const pdfjsLib = window['pdfjs-dist/build/pdf'];
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-    const canvas = document.getElementById('pdf-canvas');
-    const ctx = canvas.getContext('2d');
+      let pdfDoc = null;     // The loaded PDF document
+      let currentPage = 1;   // Current page number
+      let totalPages = 0;    // Total number of pages
+      let scale = 1.5;       // Scale for rendering
 
-    const currentPageElem = document.getElementById('current-page');
-    const totalPagesElem = document.getElementById('total-pages');
-    const prevButton = document.getElementById('prev');
-    const nextButton = document.getElementById('next');
+      const canvas = document.getElementById('pdf-canvas');
+      const ctx = canvas.getContext('2d');
 
-    // Render the specified page
-    function renderPage(pageNum) {
-      pdfDoc.getPage(pageNum).then(page => {
-        const viewport = page.getViewport({ scale });
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+      const currentPageElem = document.getElementById('current-page');
+      const totalPagesElem = document.getElementById('total-pages');
+      const prevButton = document.getElementById('prev');
+      const nextButton = document.getElementById('next');
 
-        const renderContext = {
-          canvasContext: ctx,
-          viewport: viewport
-        };
-        page.render(renderContext).promise.then(() => {
-          currentPageElem.textContent = pageNum;
+      // Render the specified page
+      function renderPage(pageNum) {
+        pdfDoc.getPage(pageNum).then(page => {
+          const viewport = page.getViewport({ scale });
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+          };
+          page.render(renderContext).promise.then(() => {
+            currentPageElem.textContent = pageNum;
+          });
         });
+      }
+
+      // Load the PDF and initialize controls
+      pdfjsLib.getDocument(notesURL).promise.then(pdf => {
+        pdfDoc = pdf;
+        totalPages = pdf.numPages;
+        totalPagesElem.textContent = totalPages;
+        renderPage(currentPage);
+      }).catch(error => {
+        console.error('Error loading PDF:', error);
+      });
+
+      // Navigate to the previous page
+      prevButton.addEventListener('click', () => {
+        if (currentPage <= 1) return;
+        currentPage--;
+        renderPage(currentPage);
+      });
+
+      // Navigate to the next page
+      nextButton.addEventListener('click', () => {
+        if (currentPage >= totalPages) return;
+        currentPage++;
+        renderPage(currentPage);
       });
     }
-
-    // Load the PDF and initialize controls
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-      pdfDoc = pdf;
-      totalPages = pdf.numPages;
-      totalPagesElem.textContent = totalPages;
-      renderPage(currentPage);
-    }).catch(error => {
-      console.error('Error loading PDF:', error);
-    });
-
-    // Navigate to the previous page
-    prevButton.addEventListener('click', () => {
-      if (currentPage <= 1) return;
-      currentPage--;
-      renderPage(currentPage);
-    });
-
-    // Navigate to the next page
-    nextButton.addEventListener('click', () => {
-      if (currentPage >= totalPages) return;
-      currentPage++;
-      renderPage(currentPage);
-    });
   </script>
 </body>
 

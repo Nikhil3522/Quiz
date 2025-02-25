@@ -1,6 +1,9 @@
 <?php
 @session_start();
-
+$servername = "localhost";
+$username = "user111";
+$password = "pass@12#";
+$database = "quiz";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -10,5 +13,8 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 $conn->set_charset("utf8");
+
+// for Testing purpose;
+// $user_id = 1; 
 
 ?>

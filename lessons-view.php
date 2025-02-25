@@ -189,9 +189,9 @@ $courseName = $fetchcourseName->courseName;
               while($fetchLessons = mysqli_fetch_object($getLessons)){
           ?>
             <a href="#" class="rounded-2xl overflow-hidden shadow2">
-                <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: #bfbffd;">
+                <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: rgba(228, 0, 40, 1);">
                     <div class="flex justify-start items-center gap-3">
-                    <p class="font-medium"><?php echo $fetchLessons->lessonName; ?></p>
+                    <p class="font-medium text-white"><?php echo $fetchLessons->lessonName; ?></p>
                     </div>
                 </div>
                 <div class="p-5 bg-white dark:bg-color10">

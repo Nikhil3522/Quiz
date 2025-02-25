@@ -1,3 +1,10 @@
+<?php
+require_once("config.php");
+$instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
+$getinstituteName = mysqli_query($conn, "select instituteName from institute where id='$instituteId'");
+$fetchinstituteName = mysqli_fetch_object($getinstituteName);
+$instituteName = $fetchinstituteName->instituteName;
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -55,7 +62,44 @@
 
         <!-- Contest List Start -->
         <div class="px-6 flex flex-col gap-4 pt-28">
+          
+          <?php $getCourses = mysqli_query($conn, "select * from courses where active=1 and instituteName='$instituteName'");
+              while($fetchCourses = mysqli_fetch_object($getCourses)){
+          ?>
+
           <div
+            class=" bg-white py-4 px-5 rounded-xl border border-black border-opacity-20 dark:bg-color9 dark:border-color24"
+          >
+            <div class="flex justify-between items-center">
+                <div class="flex justify-start items-center gap-3">
+                <div class="rounded-full overflow-hidden">
+                    <img
+                    src="https://roshan1.b-cdn.net/<?php echo $fetchCourses->courseImage; ?>"
+                    alt=""
+                    class="size-12"
+                    />
+                </div>
+                <div class="">
+                    <div class="flex justify-start items-center gap-1">
+                    <p class="font-semibold"><?php echo $fetchCourses->courseName; ?></p>
+                    </div>
+                    <p class="text-xs">Lessons: <?php echo $fetchCourses->totalLessons; ?></p>
+                </div>
+                </div>
+
+                <button
+                class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
+                onclick="window.location.href='lessons-view.php?iid=<?php echo $instituteId; ?>&cid=<?php echo $fetchCourses->id; ?>'"
+                >
+                View
+                </button>
+            </div>
+            <p class="text-xs mt-5" style="text-align: justify;"><?php echo $fetchCourses->description; ?></p>
+          </div>
+
+        <?php } ?>
+
+          <!-- <div
             class=" bg-white py-4 px-5 rounded-xl border border-black border-opacity-20 dark:bg-color9 dark:border-color24"
           >
             <div class="flex justify-between items-center">
@@ -173,7 +217,7 @@
                 </button>
             </div>
             <p class="text-xs mt-5" style="text-align: justify;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores, iusto necessitatibus totam quae minima nemo, natus in porro earum, voluptas a. Perspiciatis cumque tempore nemo! Fuga recusandae nobis dolorum culpa!</p>
-          </div>
+          </div> -->
         </div>
         <!-- Contest List End -->
       </div>

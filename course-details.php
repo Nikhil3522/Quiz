@@ -1,3 +1,10 @@
+<?php
+require_once("config.php");
+$instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
+// if($instituteId==""){
+//   echo "<script>alert('')</script>";
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -87,12 +94,15 @@
           </div>
         </div>
         <!-- Page Title End -->
+        <?php $getInstitute = mysqli_query($conn, "select * from institute where id=$instituteId");
+              while($fetchInstitute = mysqli_fetch_object($getInstitute)){
+          ?>
         <div class="flex justify-center items-center pt-20 flex-col gap-5">
             <div
                 class="bg-white py-5 rounded-xl border border-p1 dark:bg-color9"
             >
-                <img src="assets/images/insti1.png"  class="px-20" alt="" width="230px"/>
-                <p class="text-xs font-semibold pt-2 text-center">Forsat Language Institute</p>
+                <img src="https://roshan1.b-cdn.net/<?php echo $fetchInstitute->instituteLogo; ?>"  class="px-20" alt="" width="230px"/>
+                <p class="text-xs font-semibold pt-2 text-center"><?php echo $fetchInstitute->instituteName; ?></p>
             </div>
         </div>
 
@@ -106,7 +116,7 @@
           </p>
           <div class="flex justify-start items-center gap-2 pt-3">
             <p class="text-sm text-color5 dark:text-bgColor5">
-                Leading language institute with modern teaching methods.
+                <?php echo $fetchInstitute->descriptionBrief; ?>
             </p>
           </div>
         </div>
@@ -121,12 +131,7 @@
           </p>
           <div class="flex justify-start items-center gap-2 pt-3">
             <p class="text-sm text-color5 dark:text-bgColor5 detailsShort">
-                Forsat Language Institute has over 10 years of experience in teaching language courses; specializing in IELTS -TOEFL - and general conversation.
-              <!-- <button
-                class="text-p2 underline dark:text-p1 quizDetailsShowButton"
-              >
-                More
-              </button> -->
+                <?php echo $fetchInstitute->descriptionDetailed; ?>
             </p>
             <div class="text-sm flex-col gap-2 details">
               <p class="">
@@ -179,7 +184,18 @@
                 <div class="flex justify-between items-center py-2 px-5 bg-p2 text-white rounded-t-2xl">
                   <p>List</p>
                 </div>
-                <div class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5">
+                <?php $targetArr = explode(",", $fetchInstitute->targetLevel); 
+                foreach ($targetArr as $target) { ?>
+                  <div class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5">
+                  <div class="flex justify-start items-center gap-1">
+                    <p><?php echo $target; ?></p>
+                  </div>
+                  <div class="flex justify-start items-center gap-1">
+                    <i class="ph ph-check text-p2"></i>
+                  </div>
+                </div>
+                <?php } ?>
+                <!-- <div class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5">
                   <div class="flex justify-start items-center gap-1">
                     <p>Beginner</p>
                   </div>
@@ -202,7 +218,7 @@
                   <div class="flex justify-start items-center gap-1">
                     <i class="ph ph-check text-p2"></i>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="tab-content hiddenTab" id="tabTwo_data">
@@ -213,8 +229,20 @@
                   </th>
                   
                 </tr>
-                
-                <tr class=" w-full border-b border-color21 dark:border-color24 border-dashed">
+                <?php $specializationArr = explode(",", $fetchInstitute->specialization); 
+                foreach ($specializationArr as $specialization) { ?>
+                  <tr class=" w-full border-b border-color21 dark:border-color24 border-dashed">
+                  <td class="flex justify-between">
+                    <div class="flex justify-start items-center gap-2 py-3 mx-5">
+                      <p><?php echo $specialization; ?></p>
+                    </div>
+                    <div class="flex justify-start items-center gap-2 py-3 mx-5">
+                      <i class="ph ph-check text-p2"></i>
+                    </div>
+                  </td>
+                </tr>
+                <?php } ?>
+                <!-- <tr class=" w-full border-b border-color21 dark:border-color24 border-dashed">
                   <td class="flex justify-between">
                     <div class="flex justify-start items-center gap-2 py-3 mx-5">
                       <p>Conversation</p>
@@ -263,12 +291,13 @@
                       <i class="ph ph-check text-p2"></i>
                     </div>
                   </td>
-                </tr>
+                </tr> -->
               </tbody></table>
               <!-- <a href="leader-board.html" class="text-center pt-3 block font-semibold text-p2 dark:text-p1">See All</a> -->
             </div>
           </div>
         </div>
+      <?php } ?>
       </div>
     </div>
 

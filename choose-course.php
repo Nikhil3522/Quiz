@@ -1,3 +1,6 @@
+<?php
+require_once("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -53,10 +56,37 @@
 
       <div class="relative z-20 pt-32">
         <div class="grid grid-cols-2 gap-5 text-center">
+          
+          <?php $getInstitute = mysqli_query($conn, "select * from institute where active=1");
+              while($fetchInstitute = mysqli_fetch_object($getInstitute)){
+          ?>
           <a
             class="py-5 px-4 rounded-xl bg-white flex justify-center items-center flex-col relative dark:bg-color9"
           >
           <!-- href="medal-details.html" -->
+            <div
+              class="absolute top-2 right-2 flex justify-center items-center text-p2 rounded-full p-1.5 text-sm cursor-pointer"
+              style="height: 17.05px;"
+              onclick="window.location.href='course-details.php?iid=<?php echo $fetchInstitute->id; ?>'"
+            >
+                <img src="assets/images/info.png" alt="info" width="20px"/>
+            </div>
+            <img src="https://roshan1.b-cdn.net/<?php echo $fetchInstitute->instituteLogo; ?>" alt="" width="60px"/>
+            <p class="text-sm font-semibold pt-3"><?php echo $fetchInstitute->instituteName; ?></p>
+            <button
+                class="flex justify-center items-center gap-2 py-2 px-6 rounded-full mt-2 bg-p2 text-white text-sm dark:text-p1 dark:bg-bgColor14 dark:border-bgColor16 dark:border mt-5"
+                onclick="window.location.href='course-view.php?iid=<?php echo $fetchInstitute->id; ?>'"
+            >
+            View Courses
+            </button>
+            <p class="text-xs mt-2 cursor-pointer" onclick="window.location.href='course-details.php?iid=<?php echo $fetchInstitute->id; ?>'">Details</p>
+          </a>
+          <?php } ?>
+
+          <!-- <a
+            class="py-5 px-4 rounded-xl bg-white flex justify-center items-center flex-col relative dark:bg-color9"
+          >
+          <!-- href="medal-details.html" --
             <div
               class="absolute top-2 right-2 flex justify-center items-center text-p2 rounded-full p-1.5 text-sm cursor-pointer"
               style="height: 17.05px;"
@@ -173,7 +203,7 @@
             View Courses
             </button>
             <p class="text-xs mt-2 cursor-pointer" onclick="window.location.href='course-details.php'">Details</p>
-          </a>
+          </a> -->
         </div>
       </div>
     </div>

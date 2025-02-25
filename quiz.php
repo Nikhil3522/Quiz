@@ -13,10 +13,18 @@
   <link rel="manifest" href="manifest.json" />
   <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet">
+  <style>
+    #quiz_container{
+      display: none;
+    }
+  </style>
 </head>
 
 <body class="">
-  <div class="container min-h-dvh relative overflow-hidden py-8 dark:text-white dark:bg-color1">
+  <div id="loader_container" style="display: flex; justify-content: center; height: 100vh; align-items: center;">
+    <img src="assets/quiz_loader.gif" />
+  </div>
+  <div id="quiz_container" class="none container min-h-dvh relative overflow-hidden py-8 dark:text-white dark:bg-color1">
     <!-- Absolute Items Start -->
     <img src="assets/images/header-bg-1.png" alt="" class="absolute top-0 left-0 right-0 -mt-8" />
     <div class="absolute top-0 left-0 bg-p3 blur-[145px] h-[174px] w-[149px]"></div>
@@ -61,9 +69,9 @@
                 <p id="timeDisplay" style="font-size: 20px; font-weight: 400; text-align: center; width: 18px; margin-left: <?php if(isset($quiz_name) && $quiz_name != ""){ echo "0px"; } else{ echo "-10px";}?>;" class="text-lg font-bold absolute top-[26px] left-[30px]">
                   <?php if(isset($quiz_name) && $quiz_name != ""){ ?>
                     20
-                  <?php }else{?>
-                    0:00
-                  <?php }?>
+                  <?php }else{
+                    echo (isset($_GET['max_limit']) ? $_GET['max_limit'] : "5") . ":00";
+                  }?>
                 </p>
             </svg>
           </div>
@@ -112,6 +120,7 @@
         </a>
       </div>
     </div>
+  </div>
 
     <!-- ==== js dependencies start ==== -->
     <script src="assets/js/main.js"></script>
@@ -314,7 +323,7 @@
           <?php if (isset($_GET['max_limit'])): ?>
             maxTime = <?php echo intval($_GET['max_limit']) * 60; ?>; // Safely pass and use the PHP value
           <?php endif; ?>
-
+          maxTime--;
           let strokeValue = 0;
           let strokeDivide = maxTime;
 
@@ -364,19 +373,21 @@
           }, 1000);
         }
 
+        document.getElementById('quiz_container').style.display = 'block';
+        document.getElementById('loader_container').style.display = 'none';
         
       }
 
-      window.addEventListener('beforeunload', (event) => {
-        // Custom message for modern browsers
-        const confirmationMessage = 'Are you sure you want to leave this page? Changes you made may not be saved.';
+      // window.addEventListener('beforeunload', (event) => {
+      //   // Custom message for modern browsers
+      //   const confirmationMessage = 'Are you sure you want to leave this page? Changes you made may not be saved.';
 
-        // Set the returnValue property to display a confirmation dialog
-        event.returnValue = confirmationMessage;
+      //   // Set the returnValue property to display a confirmation dialog
+      //   event.returnValue = confirmationMessage;
 
-        // Some browsers also display the return value
-        return confirmationMessage;
-      });
+      //   // Some browsers also display the return value
+      //   return confirmationMessage;
+      // });
 
 
       timer();

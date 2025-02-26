@@ -76,6 +76,17 @@ switch ($function_name) {
             echo "Error: " . $conn->error;
         }
         break;
+    case 'upgrade_level':
+        $new_level = $_GET['new_level'];
+
+        $query = "UPDATE users SET english_level = '$new_level' WHERE user_id = $user_id";
+
+        if ($conn->query($query)) {
+            echo "Level Updated";
+        } else {
+            echo "Error: " . $conn->error;
+        }
+        break;
     default:
         # code...
         break;

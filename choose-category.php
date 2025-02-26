@@ -63,6 +63,7 @@
 
             while($row = $categories_result->fetch_assoc()){
               $category_id = $row['category_id'];
+              if($category_id == '5') continue;
               $category_name = $row['name'];
           ?>
           <div

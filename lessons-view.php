@@ -29,7 +29,7 @@ $courseName = $fetchcourseName->courseName;
   <style>
     #video_container, #notes_container{
         display: none;
-        background: #bfbffd87;
+        background: #d21c3773;
         padding-top: 30px;
         padding-bottom: 30px;
         flex-direction: column;
@@ -49,7 +49,7 @@ $courseName = $fetchcourseName->courseName;
 
     #audio_container {
       display: none;
-      background: #5c47f6;
+      background: #d11c36;
       color: white;
       min-height: 50px;
       position: fixed;
@@ -150,7 +150,7 @@ $courseName = $fetchcourseName->courseName;
             </video>
         </div>
 
-        <div id="notes_container" style="background: #bfbffd; padding: 0;">
+        <div id="notes_container" style="background: #d21c3773; padding: 0;">
           <button style="margin-left: auto; font-size: 25px; padding-right: 15px;" onclick="hideNotesContainer()">
             <i class="ph ph-x text-p2"></i>
           </button>

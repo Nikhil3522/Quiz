@@ -71,7 +71,7 @@ require_once("config.php");
             >
                 <img src="assets/images/info.png" alt="info" width="20px"/>
             </div>
-            <img src="https://roshan1.b-cdn.net/<?php echo $fetchInstitute->instituteLogo; ?>" alt="" width="60px"/>
+            <img src="https://roshan1.b-cdn.net/<?php echo $fetchInstitute->instituteLogo; ?>" alt="" width="60px" style="min-height: 60px; min-width: 50px; background: #d1d0d0;"/>
             <p class="text-sm font-semibold pt-3"><?php echo $fetchInstitute->instituteName; ?></p>
             <button
                 class="flex justify-center items-center gap-2 py-2 px-6 rounded-full mt-2 bg-p2 text-white text-sm dark:text-p1 dark:bg-bgColor14 dark:border-bgColor16 dark:border mt-5"

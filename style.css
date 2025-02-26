@@ -1807,8 +1807,8 @@ video {
 }
 .text-p2{
   --tw-text-opacity: 1;
-  color: rgba(97, 59, 255, 1);
-  color: rgba(97, 59, 255, var(--tw-text-opacity));
+  color: rgba(228, 0, 40, 1);
+  color: rgba(228, 0, 40, var(--tw-text-opacity));
 }
 .text-p3{
   --tw-text-opacity: 1;
@@ -1967,11 +1967,11 @@ body.dark .toggle.active {
 }
 .quizDetailsTab .tab-button .tabButton.activeTabButton{
   --tw-border-opacity: 1;
-  border-color: rgba(97, 59, 255, 1);
-  border-color: rgba(97, 59, 255, var(--tw-border-opacity));
+  border-color: rgba(228, 0, 40, 1);
+  border-color: rgba(228, 0, 40, var(--tw-border-opacity));
   --tw-text-opacity: 1;
-  color: rgba(97, 59, 255, 1);
-  color: rgba(97, 59, 255, var(--tw-text-opacity));
+  color: rgba(228, 0, 40, 1);
+  color: rgba(228, 0, 40, var(--tw-text-opacity));
 }
 
 /* Swiper Styles */
@@ -2589,6 +2589,6 @@ path {
   color: rgba(228, 0, 40, 1);
 }
 
-.ph-x, .ph-globe, .ph-user, .ph-list, .ph-dots-three, .ph-check{
+.ph-x, .ph-globe, .ph-user, .ph-list, .ph-dots-three, .ph-check, .ph-diamonds-four, .ph-gear-six, .ph-seal-question, .ph-sign-out, .ph-medal, .ph-exam{
   color: white;
 }

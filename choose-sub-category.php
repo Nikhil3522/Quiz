@@ -78,7 +78,7 @@
             <?php
               }
             ?>
-            <span style=" background: #ffce85; height: 55px; width: 55px; border-radius: 35px; text-align: center; line-height: 55px; font-size: 30px; color: #5c46f6; font-weight: 600;"><?= substr($sub_category_name, 0, 1); ?></span>
+            <span style=" background: rgba(228, 0, 40, 1); height: 55px; width: 55px; border-radius: 35px; text-align: center; line-height: 55px; font-size: 30px; color:rgb(255, 255, 255); font-weight: 600;"><?= substr($sub_category_name, 0, 1); ?></span>
             <p class="text-sm font-semibold pt-3"><?= $sub_category_name ?></p>
             <button
               <?php

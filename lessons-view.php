@@ -29,7 +29,7 @@ $courseName = $fetchcourseName->courseName;
   <style>
     #video_container, #notes_container{
         display: none;
-        background: #bfbffd87;
+        background: #d21c3773;
         padding-top: 30px;
         padding-bottom: 30px;
         flex-direction: column;
@@ -49,7 +49,7 @@ $courseName = $fetchcourseName->courseName;
 
     #audio_container {
       display: none;
-      background: #5c47f6;
+      background: #d11c36;
       color: white;
       min-height: 50px;
       position: fixed;
@@ -150,7 +150,7 @@ $courseName = $fetchcourseName->courseName;
             </video>
         </div>
 
-        <div id="notes_container" style="background: #bfbffd; padding: 0;">
+        <div id="notes_container" style="background: #d21c3773; padding: 0;">
           <button style="margin-left: auto; font-size: 25px; padding-right: 15px;" onclick="hideNotesContainer()">
             <i class="ph ph-x text-p2"></i>
           </button>
@@ -189,9 +189,9 @@ $courseName = $fetchcourseName->courseName;
               while($fetchLessons = mysqli_fetch_object($getLessons)){
           ?>
             <a href="#" class="rounded-2xl overflow-hidden shadow2">
-                <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: #bfbffd;">
+                <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: rgba(228, 0, 40, 1);">
                     <div class="flex justify-start items-center gap-3">
-                    <p class="font-medium"><?php echo $fetchLessons->lessonName; ?></p>
+                    <p class="font-medium text-white"><?php echo $fetchLessons->lessonName; ?></p>
                     </div>
                 </div>
                 <div class="p-5 bg-white dark:bg-color10">

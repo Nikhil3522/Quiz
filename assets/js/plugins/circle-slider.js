@@ -81,7 +81,7 @@ function rotateRight() {
 }
 
 function updatePaths(position) {
-  console.log("update paths");
+  // console.log("update paths");
   switch (position) {
     case "left":
       leftPaginationPath.setAttribute("d", leftFinalPath);
@@ -98,14 +98,14 @@ function updatePaths(position) {
       leftPaginationPath.setAttribute("d", leftInitialPath);
       leftPaginationPath.setAttribute("fill", "#141414");
       leftPaginationPath.setAttribute("fill-opacity", "0.16");
-      rightPaginationPath.setAttribute("d", rightInitialPath);
-      rightPaginationPath.setAttribute("fill", "#141414");
-      rightPaginationPath.setAttribute("fill-opacity", "0.16");
+      // rightPaginationPath.setAttribute("d", rightInitialPath);
+      // rightPaginationPath.setAttribute("fill", "#141414");
+      // rightPaginationPath.setAttribute("fill-opacity", "0.16");
       break;
     case "right":
-      rightPaginationPath.setAttribute("d", rightFinalPath);
-      rightPaginationPath.setAttribute("fill", "#FF710F");
-      rightPaginationPath.setAttribute("fill-opacity", "1");
+      // rightPaginationPath.setAttribute("d", rightFinalPath);
+      // rightPaginationPath.setAttribute("fill", "#FF710F");
+      // rightPaginationPath.setAttribute("fill-opacity", "1");
       centerPaginationPath.setAttribute("d", centerInitial2);
       centerPaginationPath.setAttribute("fill", "#141414");
       centerPaginationPath.setAttribute("fill-opacity", "0.16");
@@ -127,10 +127,10 @@ circleSliders.addEventListener("touchcancel", handleEnd);
 
 updatePaths("left");
 
-autoSlideInterval = setInterval(() => {
-  if(currentRotation === 1){
-    clearInterval(autoSlideInterval);
-  }else{
-    rotateRight();
-  }
-}, 2000);
+// autoSlideInterval = setInterval(() => {
+//   if(currentRotation === 1){
+//     clearInterval(autoSlideInterval);
+//   }else{
+//     rotateRight();
+//   }
+// }, 2000);

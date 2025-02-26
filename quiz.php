@@ -100,6 +100,10 @@
           <p class="text-sm font-semibold text-center" style="width: 100%;"></p>
           <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
+        <div id="fifth_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
+          <p class="text-sm font-semibold text-center" style="width: 100%;"></p>
+          <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
+        </div>
       </div>
 
       <div class="pt-12">
@@ -141,7 +145,7 @@
       $.ajax({
         url: 'api.php',
         method: 'GET',
-        data: {function_name: "load_questions"},
+        data: {function_name: "load_questions", quiz_level: '<?= $_GET['quiz_level'] ?>'},
         success: function(data) {
           resArray = JSON.parse(data); 
           totalQuestionsCount = resArray.length;
@@ -182,6 +186,12 @@
           $('#fourth_option').show();
           $('#third_option p').text(tempQuestion.third_option);
           $('#fourth_option p').text(tempQuestion.fourth_option);
+          if(tempQuestion.fifth_option){
+            $('#fifth_option').show();
+            $('#fifth_option p').text(tempQuestion.fifth_option);
+          }else{
+            $('#fifth_option').hide();
+          }
         }
 
         $('#width-bar').css('width',`${index*10}%`);
@@ -190,7 +200,7 @@
       // Function to reset the classes of options
       function resetOptions() {
         // Reset the classes of all options
-        const options = ['#first_option', '#second_option', '#third_option', '#fourth_option'];
+        const options = ['#first_option', '#second_option', '#third_option', '#fourth_option', '#fifth_option'];
         options.forEach(option => {
           const optionElement = $(option);
           optionElement.removeClass('bg-color4');
@@ -232,6 +242,8 @@
           tempOption = "3";
         }else if(answer === "fourth_option"){
           tempOption = "4";
+        }else if(answer === "fifth_option"){
+          tempOption = "5";
         }
 
         if(tempAnswer.includes(tempOption)){
@@ -256,7 +268,7 @@
         $.ajax({
           method: 'GET',
           url: 'api.php',
-          data: {function_name: 'get_correct_answer', quiz_id: <?= $_GET['quiz_id'] ?>},
+          data: {function_name: 'get_correct_answer', quiz_id: <?= $_GET['quiz_id'] ?>, quiz_level: '<?= $_GET['quiz_level'] ?>'},
           success: function (res){
             let correctAnswer = JSON.parse(res);
 
@@ -300,7 +312,6 @@
             console.error("Error in submitting the quiz answer:", error);
           }
         });
-
       }
 
       function closeWarning(){

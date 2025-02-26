@@ -9,28 +9,45 @@ $user_id = 1;
 switch ($function_name) {
     case 'load_questions':
 
-        $quiz_id = 31;
+        if($_GET['quiz_level']){
+            $level = $_GET['quiz_level']; 
+            $query = "SELECT question_id, quiz_level, type, questions, first_option, second_option, third_option, fourth_option, fifth_option  FROM test_your_english_questions WHERE quiz_level = ?;";
 
-        $query = "SELECT question_id, type, questions, first_option, second_option, third_option, fourth_option FROM quiz_questions WHERE quiz_id = ?;";
-
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $quiz_id);
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('s', $level);
+        }else{
+            $quiz_id = 31;
+            $query = "SELECT question_id, type, questions, first_option, second_option, third_option, fourth_option FROM quiz_questions WHERE quiz_id = ?;"; 
+            
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('i', $quiz_id);
+        }
 
         $stmt->execute();
-        
+            
         $result = $stmt->get_result();
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        
+        $data = $result->fetch_all(MYSQLI_ASSOC); 
+
         echo json_encode($data);
 
         break;
     case 'get_correct_answer':
-        $quiz_id = 31;
 
-        $query = "SELECT question_id, correct_answer FROM quiz_questions WHERE quiz_id = ?;";
+        if($_GET['quiz_level']){
+            $level = $_GET['quiz_level']; 
 
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $quiz_id);
+            $query = "SELECT question_id, correct_answer FROM test_your_english_questions WHERE quiz_level = ?;";
+
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('s', $level);
+        }else{
+            $quiz_id = 31;
+
+            $query = "SELECT question_id, correct_answer FROM quiz_questions WHERE quiz_id = ?;";
+
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('i', $quiz_id);
+        }
 
         $stmt->execute();
 

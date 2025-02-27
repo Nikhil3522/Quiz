@@ -290,7 +290,7 @@
             var levelArray = ['Beginner', 'Intermediate', 'Upper - Intermediate', 'Advanced'];
             let currentLevelIndex = levelArray.indexOf(quizLevel);
 
-            if (quizLevel !== 'Beginner') {
+            if (quizLevel !== 'Beginner' && quizLevel !== 'Intermediate' && quizLevel !== 'Upper - Intermediate' && quizLevel !== 'Advanced' ) {
               submitQuizAnswer(correctQues, incorrectQues);
             }else{
               if(incorrectQues <= 3) upgradeLevel(levelArray[currentLevelIndex + 1]);

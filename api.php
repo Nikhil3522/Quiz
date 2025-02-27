@@ -87,6 +87,18 @@ switch ($function_name) {
             echo "Error: " . $conn->error;
         }
         break;
+    case 'get_level':
+        $query = "SELECT english_level FROM users WHERE user_id = $user_id";
+
+        $result = $conn->query($query);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            echo json_encode(["english_level" => $row["english_level"]]);
+        } else {
+            echo json_encode(["error" => "User not found"]);
+        }
+        break;
     default:
         # code...
         break;

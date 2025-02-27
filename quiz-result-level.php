@@ -59,6 +59,7 @@
         <?php
           $correct_ques = $_GET['correct'];
           $incorrect_ques = $_GET['incorrect'];
+          $quiz_id = $_GET['quiz_id'];
           $index = 0;
 
           $incorrect_msg_array = ["Your level is Elementary You can understand and use basic expressions and phrases.",
@@ -72,7 +73,7 @@
             "Your level is Advanced You can use the language flexibly and effectively for social, academic and professional purposes."
           ];
 
-          if($incorrect_ques <= 3){
+          if(($quiz_id == 1 && $correct_ques >= 9) || ($quiz_id != 1 && $correct_ques >= 5)){
             $message = $correct_msg_array[$index];
           }else{
             $message = $incorrect_msg_array[$index];

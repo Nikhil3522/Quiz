@@ -285,13 +285,35 @@
               }
             });
 
-            submitQuizAnswer(correctQues, incorrectQues);
+            var quizLevel = "<?= isset($_GET['quiz_level']) ? $_GET['quiz_level'] : '' ?>";
 
+            var levelArray = ['Beginner', 'Intermediate', 'Upper - Intermediate', 'Advanced'];
+            let currentLevelIndex = levelArray.indexOf(quizLevel);
+
+            if (quizLevel !== 'Beginner') {
+              submitQuizAnswer(correctQues, incorrectQues);
+            }else{
+              if(incorrectQues <= 3) upgradeLevel(levelArray[currentLevelIndex + 1]);
+              window.location.href = `quiz-result-level.php?quiz_id=<?= $_GET['quiz_id'] ?>&quiz_level=${quizLevel}&correct=${correctQues}&incorrect=${incorrectQues}`;
+            }
           },
           error: function (err){
             console.error(err);
           }
         })
+      }
+
+      function upgradeLevel(newLevel){
+        $.ajax({
+          method: 'GET',
+          url: 'api.php',
+          data: {
+            function_name: 'upgrade_level', new_level: newLevel
+          },
+          error: function(error){
+            console.error(error);
+          }
+        });
       }
 
       function submitQuizAnswer(correct, incorrect){

@@ -2592,3 +2592,7 @@ path {
 .ph-x, .ph-globe, .ph-user, .ph-list, .ph-dots-three, .ph-check, .ph-diamonds-four, .ph-gear-six, .ph-seal-question, .ph-sign-out, .ph-medal, .ph-exam{
   color: white;
 }
+
+#test-enlgish-level-a{
+  display: none;
+}

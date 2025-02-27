@@ -172,20 +172,22 @@
           </div>
         </div>
 
-        <div class="px-6">
-          <div
-            class="px-4 bg-p2 flex justify-between items-center rounded-2xl relative after:absolute after:h-full after:left-2 after:right-2 after:bg-p2 after:mt-6 after:opacity-30 after:rounded-2xl after:-z-10 before:absolute before:h-full before:mt-12 before:opacity-30 before:rounded-2xl before:-z-10 before:left-4 before:right-4"
-            style="background: #e40028;"
-          >
-            <div class="text-white font-semibold !leading-none pl-2">
-              <p class="">Test your</p>
-              <p class="text-[36px] py-2 pl-2">English</p>
-            </div>
-            <div class="">
-              <img src="assets/images/invite_illus.png" alt="" />
+        <a id="test-enlgish-level-a" href="#">
+          <div class="px-6">
+            <div
+              class="px-4 bg-p2 flex justify-between items-center rounded-2xl relative after:absolute after:h-full after:left-2 after:right-2 after:bg-p2 after:mt-6 after:opacity-30 after:rounded-2xl after:-z-10 before:absolute before:h-full before:mt-12 before:opacity-30 before:rounded-2xl before:-z-10 before:left-4 before:right-4"
+              style="background: #e40028;"
+            >
+              <div class="text-white font-semibold !leading-none pl-2">
+                <p class="">Test your</p>
+                <p class="text-[36px] py-2 pl-2">English</p>
+              </div>
+              <div class="">
+                <img src="assets/images/invite_illus.png" alt="" />
+              </div>
             </div>
           </div>
-        </div>
+        </a>
 
         <div class="pt-12 px-6">
           <div class="flex justify-between items-center">
@@ -976,7 +978,31 @@
       </div>
     </div>
     <!-- Logout Modal End -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        getLevelOfUser();
+      });
 
+      function getLevelOfUser(){
+        fetch('api.php?function_name=get_level')
+        .then(res => res.json())
+        .then(data => {
+          let englishLevel = data.english_level;
+          let englishLevel_quizId = 1;
+
+          if(data.english_level == "Intermediate"){
+            englishLevel_quizId = 2;
+          }else if(data.english_level == "Upper - Intermediate"){
+            englishLevel_quizId = 3;
+          }else if(data.english_level == "Advanced"){
+            englishLevel_quizId = 4;
+          }
+
+          document.getElementById('test-enlgish-level-a').style.display = 'block';
+          document.getElementById("test-enlgish-level-a").setAttribute("href", `quiz.php?quiz_id=${englishLevel_quizId}&quiz_name=${englishLevel}&quiz_level=${englishLevel}`);
+        });
+      }
+    </script>
     <!-- Js Dependencies -->
     <script src="assets/js/plugins/plugins.js"></script>
     <script src="assets/js/plugins/plugin-custom.js"></script>

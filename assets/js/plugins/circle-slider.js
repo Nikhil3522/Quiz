@@ -69,15 +69,16 @@ function rotateLeft() {
 }
 
 function rotateRight() {
-  if (currentRotation === 0) {
-    circleSliders.style.transform = "rotate(58deg)";
-    updatePaths("right");
-    currentRotation = 1;
-  } else if (currentRotation === -1) {
+  if (currentRotation === -1) {
     circleSliders.style.transform = "rotate(0deg)";
     updatePaths("center");
     currentRotation = 0;
   }
+  // else if (currentRotation === 0) {
+  //   circleSliders.style.transform = "rotate(58deg)";
+  //   updatePaths("right");
+  //   currentRotation = 1;
+  // } 
 }
 
 function updatePaths(position) {
@@ -90,6 +91,9 @@ function updatePaths(position) {
       centerPaginationPath.setAttribute("d", centerInitialPath);
       centerPaginationPath.setAttribute("fill", "#141414");
       centerPaginationPath.setAttribute("fill-opacity", "0.16");
+
+      document.getElementById('fourth-option-swiper').style.display = 'none';
+      document.getElementById('third-option-swiper').style.display = 'block';
       break;
     case "center":
       centerPaginationPath.setAttribute("d", centerfinalPath);
@@ -98,6 +102,9 @@ function updatePaths(position) {
       leftPaginationPath.setAttribute("d", leftInitialPath);
       leftPaginationPath.setAttribute("fill", "#141414");
       leftPaginationPath.setAttribute("fill-opacity", "0.16");
+
+      document.getElementById('fourth-option-swiper').style.display = 'block';
+      document.getElementById('third-option-swiper').style.display = 'none';
       // rightPaginationPath.setAttribute("d", rightInitialPath);
       // rightPaginationPath.setAttribute("fill", "#141414");
       // rightPaginationPath.setAttribute("fill-opacity", "0.16");

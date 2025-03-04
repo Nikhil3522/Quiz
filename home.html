@@ -60,7 +60,7 @@
               <i class="ph ph-globe"></i>
             </a>
             <a
-              href="my-profile.html"
+              href="settings.html"
               class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24"
             >
               <i class="ph ph-user"></i>
@@ -101,6 +101,7 @@
               </div>
               <div
                 onclick="redirectStage()"
+                id="third-option-swiper"
                 class="flex flex-col justify-center items-center text-center gap-3 absolute left-[15.5%] bottom-[7.5%] rotate-[58deg] cursor-pointer"
               >
                 <img src="assets/images/Pre-Intermediate.png" style="width: 90px" alt="" class="" />
@@ -111,7 +112,9 @@
 
               <div
                 onclick="redirectStage()"
+                id="fourth-option-swiper"
                 class="flex flex-col justify-center items-center text-center gap-3 absolute left-[29%] bottom-0 cursor-pointer"
+                style="left: 27%;"
               >
                 <img src="assets/images/Intermediate.png" style="width: 90px" alt="" class="" />
                 <p class="text-sm font-semibold dark:text-white">Intermediate</p>
@@ -129,6 +132,7 @@
               <div
                 onclick="redirectStage()"
                 class="flex flex-col justify-center items-center text-center gap-3 absolute right-[31%] bottom-0 cursor-pointer"
+                style="right: 29%;"
               >
                 <img src="assets/images/Proficiency.png" style="width: 90px" alt="" class="" />
                 <p class="text-sm font-semibold dark:text-white">
@@ -645,7 +649,7 @@
                   Ahmed S <i class="ph-fill ph-seal-check text-p1"></i>
                 </p>
                 <p class="text-xs">
-                  <span class="font-semibold">ID :</span> 6546354651
+                  <span class="font-semibold">Level :</span> <span id="level_display"></span>
                 </p>
               </div>
             </div>
@@ -679,6 +683,7 @@
           </div>
           <div class="flex flex-col" style="height: 75vh;">
             <a
+              id="test-enlgish-level-option-a"
               href="current-contest.html"
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
             >
@@ -999,7 +1004,12 @@
           }
 
           document.getElementById('test-enlgish-level-a').style.display = 'block';
-          document.getElementById("test-enlgish-level-a").setAttribute("href", `quiz.php?quiz_id=${englishLevel_quizId}&quiz_name=${englishLevel}&quiz_level=${englishLevel}`);
+          document.getElementById("test-enlgish-level-a").setAttribute("href", `english-test-instruction.php?quiz_id=${englishLevel_quizId}&quiz_name=${englishLevel}&quiz_level=${englishLevel}`);
+
+          document.getElementById('test-enlgish-level-option-a').style.display = 'flex';
+          document.getElementById("test-enlgish-level-option-a").setAttribute("href", `english-test-instruction.php?quiz_id=${englishLevel_quizId}&quiz_name=${englishLevel}&quiz_level=${englishLevel}`);
+
+          document.getElementById('level_display').innerText = englishLevel
         });
       }
     </script>

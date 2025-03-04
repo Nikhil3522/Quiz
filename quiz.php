@@ -40,8 +40,10 @@
       </button>
       <?php
         $quiz_name = $_GET['quiz_name'];
+        if(!isset($_GET['quiz_level'])){
       ?>
-      <h2 style="text-align: center; color: white; font-weight: 500; text-transform: uppercase; margin-bottom: 5px; font-size: 20px;"><?= $quiz_name ?></h2>
+        <h2 style="text-align: center; color: white; font-weight: 500; text-transform: uppercase; margin-bottom: 5px; font-size: 20px;"><?= $quiz_name ?></h2>
+      <?php } ?>
       <div class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9" style="width: 100px; margin: auto;">
         <p class="text-xs font-semibold text-nowrap"><span class="current_question_number"></span> of <span class="total_question_number"></span></p>
       </div>
@@ -114,15 +116,17 @@
           Next
         </a>
       </div>
-      <div class="pt-2">
-        <a
-          class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
-          onclick="displayQuestion()"
-          style="background: #ff710f;"
-          >
-          Skip
-        </a>
-      </div>
+      <?php if(!isset($_GET['quiz_level'])){ ?>
+        <div class="pt-2">
+          <a
+            class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
+            onclick="displayQuestion()"
+            style="background: #ff710f;"
+            >
+            Skip
+          </a>
+        </div>
+      <?php } ?>
     </div>
   </div>
 
@@ -141,11 +145,12 @@
       var tempAnswer = ""; // In this variable store the answer of current question
       let previousTime = null;
       let quizName = "<?= $quiz_name ?>"
+      var quizLevel = "<?= isset($_GET['quiz_level']) ? $_GET['quiz_level'] : '' ?>";
 
       $.ajax({
         url: 'api.php',
         method: 'GET',
-        data: {function_name: "load_questions", quiz_level: '<?= $_GET['quiz_level'] ?>'},
+        data: {function_name: "load_questions", quiz_level: quizLevel},
         success: function(data) {
           resArray = JSON.parse(data); 
           totalQuestionsCount = resArray.length;
@@ -268,7 +273,7 @@
         $.ajax({
           method: 'GET',
           url: 'api.php',
-          data: {function_name: 'get_correct_answer', quiz_id: <?= $_GET['quiz_id'] ?>, quiz_level: '<?= $_GET['quiz_level'] ?>'},
+          data: {function_name: 'get_correct_answer', quiz_id: <?= $_GET['quiz_id'] ?>, quiz_level: quizLevel},
           success: function (res){
             let correctAnswer = JSON.parse(res);
 
@@ -285,15 +290,13 @@
               }
             });
 
-            var quizLevel = "<?= isset($_GET['quiz_level']) ? $_GET['quiz_level'] : '' ?>";
-
             var levelArray = ['Beginner', 'Intermediate', 'Upper - Intermediate', 'Advanced'];
             let currentLevelIndex = levelArray.indexOf(quizLevel);
 
             if (quizLevel !== 'Beginner' && quizLevel !== 'Intermediate' && quizLevel !== 'Upper - Intermediate' && quizLevel !== 'Advanced' ) {
               submitQuizAnswer(correctQues, incorrectQues);
             }else{
-              if(incorrectQues <= 3) upgradeLevel(levelArray[currentLevelIndex + 1]);
+              if((<?= $_GET['quiz_id'] ?> == 1 && correctQues >= 9) || (<?= $_GET['quiz_id'] ?> != 1 && correctQues >= 5)) upgradeLevel(levelArray[currentLevelIndex + 1]);
               window.location.href = `quiz-result-level.php?quiz_id=<?= $_GET['quiz_id'] ?>&quiz_level=${quizLevel}&correct=${correctQues}&incorrect=${incorrectQues}`;
             }
           },
@@ -395,6 +398,10 @@
           previousTime = setInterval(() => {
 
             if(maxTime === 0){
+              if(quizLevel !== ''){
+                getCorrectAnswer();
+                return;
+              }
               displayQuestion();
               maxTime = 20;
             }

@@ -78,8 +78,9 @@ switch ($function_name) {
         break;
     case 'upgrade_level':
         $new_level = $_GET['new_level'];
+        $unlock_value = $_GET['unlock_value'];
 
-        $query = "UPDATE users SET english_level = '$new_level' WHERE user_id = $user_id";
+        $query = "UPDATE users SET english_level = '$new_level', first_stage_unlock_value = '$unlock_value' WHERE user_id = $user_id";
 
         if ($conn->query($query)) {
             echo "Level Updated";
@@ -88,17 +89,32 @@ switch ($function_name) {
         }
         break;
     case 'get_level':
-        $query = "SELECT english_level FROM users WHERE user_id = $user_id";
+        $query = "SELECT english_level, first_stage_unlock_value FROM users WHERE user_id = $user_id";
 
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            echo json_encode(["english_level" => $row["english_level"]]);
+            echo json_encode(["english_level" => $row["english_level"], "first_stage_unlock_value" => $row['first_stage_unlock_value']]);
         } else {
             echo json_encode(["error" => "User not found"]);
         }
         break;
+    case 'get_unlock_value':
+        $curren_stage = $_GET['current_stage'];
+        $pre_stage  = $_GET['pre_stage_id'];
+
+        $query = "SELECT * FROM user_quiz_unlocks WHERE user_id = $user_id AND current_stage = ? AND pre_stage_id = ? LIMIT 1";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('ii', $curren_stage, $pre_stage);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        
+        echo json_encode($data);
     default:
         # code...
         break;

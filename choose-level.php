@@ -70,28 +70,16 @@
                     $level_name = $row['name'];
 
                     ?>
-                    <div
+                    <button
                     class="bg-white dark:bg-color9 shadow-sm text-center rounded-lg relative item cursor-pointer"
-                    <?php
-                      if( $sub_cat_level_id  === '31'){
-                    ?>
                       onclick="window.location.href='quiz.php?quiz_id=<?= $sub_cat_level_id ?>&quiz_name=<?= $level_name ?>'"
-                    <?php
-                      }
-                    ?>
-                    
+                      disabled
                     >
-                    <?php
-                      if( $sub_cat_level_id  !== '31'){
-                    ?>
                       <div
                         class="flex justify-center items-center p-1 rounded-full text-p2 bg-color14 border dark:text-p1 dark:border-bgColor16 dark:bg-bgColor14 border-color16 absolute top-2 text-xs right-2"
                     >
                         <i class="ph ph-lock-simple-open"></i>
                     </div>
-                    <?php
-                      }
-                    ?>
                     <div class="rounded-full">
                         <div
                         class="rounded-full flex justify-center items-center text-lg font-bold relative progress small"
@@ -120,7 +108,7 @@
                         </div>
                     </div>
                     <p class="text-xs font-semibold pb-3"><?= $level_name; ?></p>
-                    </div>
+                    </button>
 
                     <?php
                 }
@@ -170,7 +158,9 @@
     </div> -->
     <!-- ==== js dependencies start ==== -->
     <script src="assets/js/main.js"></script>
-  <script defer src="index.js"></script></body>
+  <script defer src="index.js"></script>
+  <script src="assets/js/quiz_unlock_logic.js"></script>
+</body>
 
 <!-- Mirrored from quizio-pwa-html-app.vercel.app/math-quiz.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:21 GMT -->
 </html>

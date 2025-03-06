@@ -53,7 +53,7 @@
 
       <div class="relative z-20 pt-20">
 
-        <div class="grid grid-cols-2 gap-5 pt-5 text-center">
+        <div class="grid grid-cols-2 gap-5 pt-5 text-center levelItems">
           <?php
             include('cons.php');
             $category_id = $_GET['category_id'];
@@ -67,28 +67,19 @@
             class="py-5 px-4 rounded-xl bg-white flex justify-center items-center flex-col relative dark:bg-color9"
           >
           <!-- href="medal-details.html" -->
-            <?php
-              if( $sub_category_id  !== '1'){
-            ?>
-              <div
-                class="absolute top-2 right-2 flex justify-center items-center bg-color14 text-p2 border border-color16 rounded-full p-1.5 text-sm dark:text-p1 dark:bg-bgColor14 dark:border-bgColor16"
-              >
-                <i class="ph ph-lock-simple"></i>
-              </div>
-            <?php
-              }
-            ?>
+            <div
+              class="absolute top-2 right-2 flex justify-center items-center bg-color14 text-p2 border border-color16 rounded-full p-1.5 text-sm dark:text-p1 dark:bg-bgColor14 dark:border-bgColor16"
+            >
+              <i class="ph ph-lock-simple"></i>
+            </div>
             <span style=" background: rgba(228, 0, 40, 1); height: 55px; width: 55px; border-radius: 35px; text-align: center; line-height: 55px; font-size: 30px; color:rgb(255, 255, 255); font-weight: 600;"><?= substr($sub_category_name, 0, 1); ?></span>
             <p class="text-sm font-semibold pt-3"><?= $sub_category_name ?></p>
             <button
-              <?php
-                if( $sub_category_id  === '1'){
-              ?>
               onclick="window.location.href='choose-level.php?sub_category_id=<?= $sub_category_id ?>&sub_category_name=<?= $sub_category_name ?>'"
-              <?php
-                }
-              ?>
               class="flex justify-center items-center gap-2 py-2 px-6 rounded-full bg-p2 text-white text-sm dark:text-p1 dark:bg-bgColor14 dark:border-bgColor16 dark:border mt-2"
+              <?php if($sub_category_id != 1){ ?>
+              disabled
+              <?php } ?>
             >
               Start
             </button>
@@ -101,7 +92,9 @@
     </div>
     <!-- ==== js dependencies start ==== -->
     <script src="assets/js/main.js"></script>
-  <script defer src="index.js"></script></body>
+  <script defer src="index.js"></script>
+  <script src="assets/js/quiz_unlock_logic.js"></script>
+</body>
 
 <!-- Mirrored from quizio-pwa-html-app.vercel.app/master-medal.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:13 GMT -->
 </html>

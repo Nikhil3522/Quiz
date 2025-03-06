@@ -54,7 +54,7 @@
         <!-- Page Title End -->
 
         <!-- Contest List Start -->
-        <div class="px-6 flex flex-col gap-4 pt-20">
+        <div class="px-6 flex flex-col gap-4 pt-20 levelItems">
           <?php
             include('cons.php');
 
@@ -69,18 +69,12 @@
           <div
             class="flex justify-between items-center bg-white py-4 px-5 rounded-xl border border-black border-opacity-20 dark:bg-color9 dark:border-color24 relative"
           >
-            <?php
-                if( $category_id  !== '1'){
-              ?>
-                <div
-                  class="flex justify-center items-center p-1 rounded-full text-p2 bg-color14 border dark:text-p1 dark:border-bgColor16 dark:bg-bgColor14 border-color16 absolute top-2 text-xs right-2"
-                  style="<?php if($category_id  !== '1'){echo "top: 35%;";} ?>"
-              >
-                  <i class="ph ph-lock-simple-open"></i>
-              </div>
-              <?php
-                }
-              ?>
+            <div
+              class="flex justify-center items-center p-1 rounded-full text-p2 bg-color14 border dark:text-p1 dark:border-bgColor16 dark:bg-bgColor14 border-color16 absolute top-2 text-xs right-2"
+              style="top: 35%;"
+            >
+                <i class="ph ph-lock-simple-open"></i>
+            </div>
             <div class="flex justify-start items-center gap-3">
               <div class="rounded-full overflow-hidden">
                 <!-- <span style="display: block; background: #ffce85; height: 45px; width: 45px; border-radius: 35px; text-align: center; line-height: 45px; font-size: 25px; color: #5c46f6; font-weight: 600;"><?= substr($category_name, 0, 1); ?></span> -->
@@ -92,25 +86,14 @@
                 </div>
               </div>
             </div>
-            <a 
-              <?php
-                if( $category_id  === '1'){
-              ?>
-                href="choose-sub-category.php?category_id=<?= $category_id; ?>&category_name=<?= $category_name; ?>"
-              <?php
-                }
-              ?>
-              
-            >
               <button
                 class="text-white bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                 style="font-size: 14px; left: 72%; top: 34%; position: absolute;"
+                onclick="window.location.href='choose-sub-category.php?category_id=<?= $category_id; ?>&category_name=<?= $category_name; ?>'"
+                disabled
               >
                   Start
               </button>
-            </a>
-
-            
           </div>
           <?php
             } 
@@ -121,7 +104,9 @@
     </div>
     <!-- ==== js dependencies start ==== -->
     <script src="assets/js/main.js"></script>
-  <script defer src="index.js"></script></body>
+  <script defer src="index.js"></script>
+  <script src="assets/js/quiz_unlock_logic.js"></script>
+</body>
 
 <!-- Mirrored from quizio-pwa-html-app.vercel.app/top-member.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:50:13 GMT -->
 </html>

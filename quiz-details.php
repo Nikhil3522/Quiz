@@ -43,12 +43,12 @@
       <div class="relative z-10 px-6">
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
-            <a
-              href="home.html"
+            <button
+              onclick="history.back()"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>
-            </a>
+            </button>
             <h2 class="text-2xl font-semibold text-white">Test Details</h2>
           </div>
           <div class="flex justify-start items-center gap-2">
@@ -87,7 +87,7 @@
           </div>
         </div>
         <!-- Page Title End -->
-        <div class="rounded-2xl overflow-hidden shadow2 mt-16">
+        <div class="rounded-2xl overflow-hidden shadow2 mt-16" style="margin-top: 100px;">
           <div class="p-5 bg-white dark:bg-color10">
             <div class="flex justify-between items-center">
               <div class="flex justify-start items-center gap-2">
@@ -127,8 +127,7 @@
               class="pt-5 flex justify-between items-center border-t border-dashed border-black dark:border-color24 border-opacity-10 mt-5"
             >
               <div class="flex justify-start items-center gap-1">
-                <i class="ph ph-trophy text-p1"></i>
-                <p class="text-xs">Earn Points: 20</p>
+                
               </div>
               <div class="flex justify-start items-center gap-2">
                 <i class="ph ph-share-network"></i>
@@ -143,7 +142,7 @@
           <p
             class="font-semibold pb-3 border-b border-dashed border-color21 dark:border-color24"
           >
-            Quiz Details
+            Description
           </p>
           <div class="flex justify-start items-center gap-2 pt-3">
             <div
@@ -196,7 +195,7 @@
           </div>
         </div>
 
-        <div class="quizDetailsTab pt-8">
+        <div class="quizDetailsTab pt-8" style="display: none;">
           <ul
             class="flex justify-start items-center tab-button text-center font-semibold"
           >

@@ -48,19 +48,14 @@ $query_string = $_SERVER['QUERY_STRING'];
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
             <a
-              href="home.html"
+              href="home-test.html"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>
             </a>
-            <!-- <h2 class="text-2xl font-semibold text-white">Details</h2> -->
+            <h2 class="text-2xl font-semibold text-white">Test Your English</h2>
           </div>
           <div class="flex justify-start items-center gap-2">
-            <!-- <div
-              class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24"
-            >
-              <i class="ph ph-paper-plane-tilt"></i>
-            </div> -->
             <div class="relative">
               <div
                 class="absolute top-12 right-0 z-40 modalClose duration-500 bg-white dark:bg-color9 p-5 rounded-xl shadow6 quizDetailsMoreOptionsModal"
@@ -93,6 +88,7 @@ $query_string = $_SERVER['QUERY_STRING'];
 
         <div
           class="py-4 px-5 rounded-2xl border border-color21 bg-white mt-8 dark:bg-color11 "
+          style="margin-top: 100px;"
         >
           <p
             class="font-semibold pb-3 border-b border-dashed border-color21 dark:border-color24"
@@ -116,7 +112,7 @@ $query_string = $_SERVER['QUERY_STRING'];
             Test Instructions:
           </p>
           <div class="flex justify-start items-center gap-2 pt-3">
-            <ol class="text-sm text-color5 dark:text-bgColor5 detailsShort">
+            <ol class="text-sm text-color5 dark:text-bgColor5 detailsShort" style="text-align: justify;">
                 <li class="pt-2">1. Answer all questions: There are 36 single-select questions in total</li>
                 <li class="pt-2">2. Be honest: To get the most out of the test, make sure your answers are real. If you don’t know the answer, select “I don’t know”. No one is judging you!</li>
                 <li class="pt-2">3. Be conscious of time: While you’re not limited in time, try not to overthink each answer. This will help you get a more precise result</li>

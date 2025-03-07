@@ -501,3 +501,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+function getLevelOfUser(){
+  fetch('api.php?function_name=get_level')
+  .then(res => res.json())
+  .then(data => {
+    let englishLevel = data.english_level;
+    let englishLevel_quizId = 1;
+
+    if(data.english_level == "Intermediate"){
+      englishLevel_quizId = 2;
+    }else if(data.english_level == "Upper - Intermediate"){
+      englishLevel_quizId = 3;
+    }else if(data.english_level == "Advanced"){
+      englishLevel_quizId = 4;
+    }
+
+    document.getElementById('test-enlgish-level-a').style.display = 'block';
+    document.getElementById("test-enlgish-level-a").setAttribute("href", `english-test-instruction.php?quiz_id=${englishLevel_quizId}&quiz_name=${englishLevel}&quiz_level=${englishLevel}`);
+
+    document.getElementById('test-enlgish-level-option-a').style.display = 'flex';
+    document.getElementById("test-enlgish-level-option-a").setAttribute("href", `english-test-instruction.php?quiz_id=${englishLevel_quizId}&quiz_name=${englishLevel}&quiz_level=${englishLevel}`);
+
+    document.getElementById('level_display').innerText = englishLevel
+  });
+}

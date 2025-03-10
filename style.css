@@ -2614,3 +2614,8 @@ path {
   width: 50px;
   box-shadow: 0px 0px 10px #65628f;
 }
+
+.clickable {
+  pointer-events: auto; /* Ensures clicks/touches are detected */
+  touch-action: manipulation; /* Improves mobile touch response */
+}

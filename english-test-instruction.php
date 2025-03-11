@@ -48,7 +48,7 @@ $query_string = $_SERVER['QUERY_STRING'];
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
             <a
-              href="home-test.html"
+              href="home-test.php"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>

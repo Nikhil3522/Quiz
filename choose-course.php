@@ -56,7 +56,7 @@
         >
           <i class="ph ph-caret-left"></i>
         </a>
-        <h2 class="text-2xl font-semibold text-white">Courses</h2>
+        <h2 class="text-2xl font-semibold text-white">Educators</h2>
       </div>
       <!-- Page Title End -->
 
@@ -81,9 +81,9 @@
             <p class="text-sm font-semibold pt-3"><?php echo $fetchInstitute->instituteName; ?></p>
             <button
                 class="flex justify-center items-center gap-2 py-2 px-6 rounded-full mt-2 bg-p2 text-white text-sm dark:text-p1 dark:bg-bgColor14 dark:border-bgColor16 dark:border mt-5"
-                onclick="window.location.href='course-view.php?iid=<?php echo $fetchInstitute->id; ?>'"
+                onclick="window.location.href='lessons-view.php?iid=<?php echo $fetchInstitute->id; ?>'"
             >
-            View Courses
+            View
             </button>
             <p class="text-xs mt-2 cursor-pointer" onclick="window.location.href='course-details.php?iid=<?php echo $fetchInstitute->id; ?>'">Details</p>
           </a>

@@ -1,3 +1,16 @@
+<?php
+$msisdn = isset($_GET['msisdn']) ? $_GET['msisdn'] : null;
+if(isset($msisdn)){
+  setcookie(
+    'mobilenumber', 
+    $msisdn, 
+    time() + (60*60),  // Cookie expiry
+    '/',  // Path
+    ''   // Domain
+  );
+  Header('Location: home-test.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -68,7 +81,7 @@
                             <li>No commitment </li>
                             <li>Ideal for trials </li>
                         </ul>
-                        <button onclick="window.location.href='home-test.html'">Choose plan</button>
+                        <button onclick="window.location.href='?msisdn=123456789'">Choose plan</button>
                         <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
                     </div>
                 </div>
@@ -85,7 +98,7 @@
                             <li>Unlimited monthly access </li>
                             <li>Hassle-free subscription </li>
                         </ul>
-                        <button onclick="window.location.href='home-test.html'">Choose plan</button>
+                        <button onclick="window.location.href='?msisdn=123456789'">Choose plan</button>
                         <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
                     </div>
                 </div>
@@ -102,7 +115,7 @@
                             <li>Save on daily rates </li>
                             <li>Best for quick use </li>
                         </ul>
-                        <button onclick="window.location.href='home-test.html'">Choose plan</button>
+                        <button onclick="window.location.href='?msisdn=123456789'">Choose plan</button>
                         <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
                     </div>
                 </div>
@@ -114,7 +127,8 @@
 
     <!-- Javascript Dependencies -->
     <script src="assets/js/main.js"></script>
-  <script defer src="index.js"></script></body>
+  <script defer src="index.js"></script>
+</body>
 
 <!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
 </html>

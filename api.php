@@ -62,12 +62,18 @@ switch ($function_name) {
         $answer_json = $_GET['answer_json']; // Make sure this is already a valid JSON string
         $correct_quest = $_GET['correct_ques'];
         $incorrect_ques = $_GET['incorrect_ques'];
+        $type = $_GET['type'];
+        $table_name = "quiz_answer";
+
+        if(isset($type) && $type == "level_test"){
+            $table_name = "english_level_test_answer";
+        }
 
         // Escape the JSON string properly
         $answer_json = $conn->real_escape_string($answer_json);
 
         // Use single quotes around the JSON string in the query
-        $query = "INSERT INTO quiz_answer(quiz_id, user_id, answer_json, correct_ques, incorrect_ques) 
+        $query = "INSERT INTO $table_name(quiz_id, user_id, answer_json, correct_ques, incorrect_ques) 
                 VALUES($quiz_id, $user_id, '$answer_json', $correct_quest, $incorrect_ques)";
 
         if ($conn->query($query)) {

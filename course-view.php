@@ -1,5 +1,11 @@
 <?php
 require_once("config.php");
+if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+  echo '<script type="text/javascript">
+          window.location.href = "logout.php";
+      </script>';
+  exit();
+}
 $instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
 $getinstituteName = mysqli_query($conn, "select instituteName from institute where id='$instituteId'");
 $fetchinstituteName = mysqli_fetch_object($getinstituteName);

@@ -1,5 +1,11 @@
 <?php
-require_once("config.php");
+  require_once("config.php");
+  if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+    echo '<script type="text/javascript">
+            window.location.href = "logout.php";
+        </script>';
+    exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">

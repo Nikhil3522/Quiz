@@ -86,23 +86,23 @@
       </div>
 
       <div class="flex flex-col gap-4 pt-8">
-        <div id="first_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
+        <div id="first_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl relative">
           <p class="text-sm font-semibold text-center" style="width: 100%;"></p>
           <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
-        <div id="second_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
+        <div id="second_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl relative">
           <p class=" text-sm font-semibold text-center" style="width: 100%;"></p>
           <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
-        <div id="third_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
+        <div id="third_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl relative">
           <p class=" text-sm font-semibold text-center" style="width: 100%;"></p>
           <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
-        <div id="fourth_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
+        <div id="fourth_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl relative">
           <p class="text-sm font-semibold text-center" style="width: 100%;"></p>
           <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
-        <div id="fifth_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl">
+        <div id="fifth_option" onclick="selectOption(event)" class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl relative">
           <p class="text-sm font-semibold text-center" style="width: 100%;"></p>
           <!-- <div class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"></div> -->
         </div>
@@ -146,6 +146,8 @@
       let previousTime = null;
       let quizName = "<?= $quiz_name ?>"
       var quizLevel = "<?= isset($_GET['quiz_level']) ? $_GET['quiz_level'] : '' ?>";
+      var preSubmittedAnswer = null;
+      var preSubmittedAnswer_resetOption = null;
 
       $.ajax({
         url: 'api.php',
@@ -169,6 +171,10 @@
           resetOptions();
           userAnswer.push({question_id: currentQuizId, answer: tempAnswer});
           tempAnswer = "";
+        }
+        let currentIndex_preSubAnswer = null;
+        if(preSubmittedAnswer && preSubmittedAnswer[index]){
+          currentIndex_preSubAnswer = preSubmittedAnswer[index]['answer'];
         }
 
         let tempQuestion = resArray[index++];
@@ -199,6 +205,22 @@
           }
         }
 
+        if(currentIndex_preSubAnswer === '1'){
+          // $('#first_option').prepend(preSaveText);
+          // preSubmittedAnswer_resetOption = 1;
+
+          // Manually trigger the function with a simulated event
+          selectOption({ target: $('#first_option')[0] });
+        }else if(currentIndex_preSubAnswer === '2'){
+          selectOption({ target: $('#second_option')[0] });
+        }else if(currentIndex_preSubAnswer === '3'){
+          selectOption({ target: $('#third_option')[0] });
+        }else if(currentIndex_preSubAnswer === '4'){
+          selectOption({ target: $('#fourth_option')[0] });
+        }else if(currentIndex_preSubAnswer === '5'){
+          selectOption({ target: $('#fifth_option')[0] });
+        }
+
         $('#width-bar').css('width',`${index*10}%`);
       }
 
@@ -223,6 +245,9 @@
 
         if (currentQuesType === "TRUE_FALSE" || currentQuesType === "SINGLE_CHOICE") {
             resetOptions();
+            if(tempAnswer.length > 0){
+              tempAnswer = "";
+            }
         }
 
         element.classList.toggle('bg-white');
@@ -294,9 +319,10 @@
             let currentLevelIndex = levelArray.indexOf(quizLevel);
 
             if (quizLevel !== 'Beginner' && quizLevel !== 'Intermediate' && quizLevel !== 'Upper - Intermediate' && quizLevel !== 'Advanced' ) {
-              submitQuizAnswer(correctQues, incorrectQues);
+              submitQuizAnswer(correctQues, incorrectQues, "normal_quiz");
             }else{
-              if((<?= $_GET['quiz_id'] ?> == 1 && correctQues >= 9) || (<?= $_GET['quiz_id'] ?> != 1 && correctQues >= 5)) upgradeLevel(levelArray[currentLevelIndex + 1]);
+              submitQuizAnswer(correctQues, incorrectQues, "level_test");
+              if((<?= $_GET['quiz_id'] ?> == 1 && correctQues >= 9) || (<?= $_GET['quiz_id'] ?> != 1 && correctQues >= 5)) upgradeLevel(levelArray[currentLevelIndex + 1], currentLevelIndex + 2);
               window.location.href = `quiz-result-level.php?quiz_id=<?= $_GET['quiz_id'] ?>&quiz_level=${quizLevel}&correct=${correctQues}&incorrect=${incorrectQues}`;
             }
           },
@@ -306,20 +332,22 @@
         })
       }
 
-      function upgradeLevel(newLevel){
+      function upgradeLevel(newLevel, unlockValue){
         $.ajax({
           method: 'GET',
           url: 'api.php',
           data: {
-            function_name: 'upgrade_level', new_level: newLevel
+            function_name: 'upgrade_level',
+            new_level: newLevel,
+            unlock_value: unlockValue
           },
           error: function(error){
             console.error(error);
           }
         });
-      }
+      } 
 
-      function submitQuizAnswer(correct, incorrect){
+      function submitQuizAnswer(correct, incorrect, type){
         $.ajax({
           method: 'GET',
           url: 'api.php',
@@ -328,9 +356,11 @@
             quiz_id: <?= $_GET['quiz_id'] ?>,
             answer_json: JSON.stringify(userAnswer),
             correct_ques: correct,
-            incorrect_ques: incorrect
+            incorrect_ques: incorrect,
+            type: type
           },
           success: function (data){
+            if(type === "level_test") return;
             window.location.href = 'quiz-result.php?quiz_id=<?= $_GET['quiz_id'] ?>';
           },
           error: function(error){
@@ -338,6 +368,37 @@
           }
         });
       }
+
+      function getPreSubmittedAnswer(){
+        $.ajax({
+          method: 'GET',
+          url: 'api.php',
+          data: {
+            function_name: 'get_user_submitted_answer',
+            quiz_id: <?= $_GET['quiz_id'] ?>,
+          },
+          success: function (data) {
+            try {
+                let JSONData = JSON.parse(data); // Parse the main JSON first
+
+                // Ensure 'data' key exists and 'answer_json' is present
+                if (JSONData.status === "success" && JSONData.data && JSONData.data.answer_json) {
+                    let parsedAnswers = JSON.parse(JSONData.data.answer_json);
+                    preSubmittedAnswer =  parsedAnswers;
+                } else {
+                    console.error("answer_json is missing or undefined:", JSONData);
+                }
+            } catch (error) {
+                console.error("Error parsing JSON:", error, data);
+            }
+          },
+          error: function(error){
+            console.error("Error", error);
+          }
+        });
+      }
+
+      getPreSubmittedAnswer();
 
       function closeWarning(){
         

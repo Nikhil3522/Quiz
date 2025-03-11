@@ -121,6 +121,20 @@ switch ($function_name) {
         $data = $result->fetch_all(MYSQLI_ASSOC);
         
         echo json_encode($data);
+        break;
+    case 'get_user_submitted_answer':
+            $quiz_id = $_GET['quiz_id'];
+        
+            $query = "SELECT * FROM english_level_test_answer WHERE user_id = $user_id AND quiz_id = $quiz_id ORDER BY quiz_answer_id DESC LIMIT 1";
+            $result = $conn->query($query);
+        
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc(); // Fetch the result as an associative array
+                echo json_encode(['status' => 'success', 'data' => $row]);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'No data found']);
+            }        
+        break;
     default:
         # code...
         break;

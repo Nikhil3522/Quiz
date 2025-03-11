@@ -1,15 +1,6 @@
 <?php
 require_once("config.php");
 $instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
-// $getinstituteName = mysqli_query($conn, "select instituteName from institute where id='$instituteId'");
-// $fetchinstituteName = mysqli_fetch_object($getinstituteName);
-// $instituteName = $fetchinstituteName->instituteName;
-
-$courseId = isset($_REQUEST['cid']) ? $_REQUEST['cid'] : '';
-$getcourseName = mysqli_query($conn, "select courseName,instituteName from courses where id='$courseId'");
-$fetchcourseName = mysqli_fetch_object($getcourseName);
-$instituteName = $fetchcourseName->instituteName;
-$courseName = $fetchcourseName->courseName;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,7 +122,7 @@ $courseName = $fetchcourseName->courseName;
     <div class="relative z-10">
       <div class="flex justify-between items-center gap-4 px-6">
         <div class="flex justify-start items-center gap-4">
-          <a href="course-view.php?iid=<?php echo $instituteId; ?>"
+          <a href="choose-course.php"
             class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10">
             <i class="ph ph-caret-left"></i>
           </a>
@@ -184,8 +175,11 @@ $courseName = $fetchcourseName->courseName;
       <div class="px-6 mt-5">
         <div class="pt-5">
           <div class="flex flex-col gap-4">
+            
 
-          <?php $getLessons = mysqli_query($conn, "select * from lessons where active=1 and instituteName='$instituteName' and courseName='$courseName'");
+          <?php
+          $query = "select * from lessons where instituteId=$instituteId";
+           $getLessons = mysqli_query($conn, $query);
               while($fetchLessons = mysqli_fetch_object($getLessons)){
           ?>
             <a href="#" class="rounded-2xl overflow-hidden shadow2">
@@ -220,18 +214,25 @@ $courseName = $fetchcourseName->courseName;
                 
 
                 <div class="pt-5 flex justify-between items-center">
+                  <?php if(trim($fetchLessons->video) != ''){ ?>
                     <div class="flex justify-start items-center gap-1" onclick="showVideoContainer('<?php echo $fetchLessons->video; ?>')">
                         <i class="ph ph-video text-p2"></i>
                         <p class="text-xs">Video lesson</p>
                     </div>
+                  <?php } ?>
+                  <?php if(trim($fetchLessons->audio) != ''){ ?>
                     <div class="flex justify-start items-center gap-1" onclick="showAudioContainer('<?php echo $fetchLessons->audio; ?>')">
                         <i class="ph ph-headphones text-p2"></i>
                         <p class="text-xs">Audio lesson</p>
                     </div>
+                  <?php } ?>
+                  <?php
+                   if(trim($fetchLessons->pdf) != ''){ ?>
                     <div class="flex justify-start items-center gap-1" onclick="showNotesContainer('<?php echo $fetchLessons->pdf; ?>')">
                         <i class="ph ph-note text-p2"></i>
                         <p class="text-xs">Notes</p>
                     </div>
+                  <?php } ?>
                 </div>
                 </div>
             </a>

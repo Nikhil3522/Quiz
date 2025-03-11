@@ -50,7 +50,7 @@
               href="home.html"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
-              <i class="ph ph-x"></i>
+              <i class="ph ph-x" style="color: #d61437;"></i>
             </a>
             <h2 class="text-2xl font-semibold text-white">Result Summary</h2>
           </div>

@@ -1,5 +1,7 @@
 <?php
 require_once("config.php");
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
   echo '<script type="text/javascript">
           window.location.href = "logout.php";
@@ -68,7 +70,7 @@ $instituteName = $fetchinstituteName->instituteName;
 
         <!-- Contest List Start -->
         <div class="px-6 flex flex-col gap-4 pt-28">
-          
+
           <?php $getCourses = mysqli_query($conn, "select * from courses where active=1 and instituteName='$instituteName'");
               while($fetchCourses = mysqli_fetch_object($getCourses)){
           ?>

@@ -56,7 +56,7 @@
         >
           <i class="ph ph-caret-left"></i>
         </a>
-        <h2 class="text-2xl font-semibold text-white">Educators</h2>
+        <h2 class="text-2xl font-semibold text-white">Learning Resources</h2>
       </div>
       <!-- Page Title End -->
 

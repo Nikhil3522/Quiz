@@ -33,7 +33,8 @@ if(isset($_REQUEST["otp"]) && !empty($_REQUEST["otp"]) ){
 				header("location:pricing-plan.php");die;
 			}
 	}else{
-					header("location:otp.php");
+    $wrongOtp = true;
+		// header("location:otp.php");
 	}
 	
 	
@@ -43,7 +44,7 @@ if(isset($_REQUEST["otp"]) && !empty($_REQUEST["otp"]) ){
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8" />
@@ -93,7 +94,7 @@ if(isset($_REQUEST["otp"]) && !empty($_REQUEST["otp"]) ){
       <!-- Page Title Start -->
       <div class="flex justify-start items-center gap-4 relative z-10">
         <a
-          href="sign-in.html"
+          href="sign-in.php"
           class="bg-white p-2 rounded-full flex justify-center items-center text-xl dark:bg-color10"
         >
           <i class="ph ph-caret-left"></i>
@@ -120,11 +121,18 @@ if(isset($_REQUEST["otp"]) && !empty($_REQUEST["otp"]) ){
               ></i>
             </div>
           </div>
-          <div class="flex">
+          <?php
+          if(isset($wrongOtp) && $wrongOtp == true){
+            ?>
+            <h3 style="text-align: center; color: red; margin-top: 10px; font-weight: 500;">Wrong Otp!</h3>
+            <?php
+          }
+          ?>
+          <!-- <div class="flex">
             <button style="text-align: center; font-size: 14px; color: #0000df; font-weight: 600; text-decoration: underline; margin: auto; margin-top: 25px;">
               Resend OTP <span id="resendOTPTimeSection">in 00:<span id="time_left">30</span></span>
             </button>
-          </div>
+          </div> -->
         </div>
 
         <!-- <a
@@ -165,5 +173,5 @@ if(isset($_REQUEST["otp"]) && !empty($_REQUEST["otp"]) ){
     </script>
 </body>
 
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
 </html>

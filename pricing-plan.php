@@ -120,10 +120,9 @@ if (isset($_REQUEST['cmpid']) && !empty($_REQUEST['cmpid'])){
 					
 					
 					$redirectUrl = "ADD_USER.php?msisdn=$msisdn";
+          $step = 2;
 					// $redirectUrl = "home-test.php";
-					echo "<script>window.alert('".$msgg."')
-					window.location.href='$redirectUrl'</script>";
-					exit();
+					// exit();
 					
 					
 					// Header('Location: home-test.php');
@@ -136,9 +135,9 @@ if (isset($_REQUEST['cmpid']) && !empty($_REQUEST['cmpid'])){
 					$msgg = 'Sorry,Something went wrong.Please try later.';
 					}
 					$redirectUrl = SITE_URL;
-					echo "<script>window.alert('".$msgg."')
-					window.location.href='$redirectUrl'</script>";
-					exit();
+          $step = 2;
+
+					// exit();
 				}
 
 }
@@ -222,76 +221,89 @@ header("Location: ADD_USER.php?msisdn=$msisdn");die;
       </div>
       <!-- Page Title End -->
 
-      <div class="pricing-wrap section-pb-60" style="margin-bottom: 80px; margin-top: 80px;">
-        <div class="container d-flex">
-            <div class="row row-cols-md-3 row-cols-1" id="pricing_plan_card_container" style="margin: auto; row-gap: 40px;">
-                
-                <div class="pricing-plan-card">
-                    <div>
-                        <h2 class="text-center pt-3" style="color: white;">Daily</h2>
-                    </div>
-                    <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>10</span></h1>
-                    <div style="min-height: 300px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-                        <ul class="pricing_plan_ul">
-                            <li>Pay per day </li>
-                            <li>No commitment </li>
-                            <li>Ideal for trials </li>
-                        </ul>
-						<center>
-						<a href="pricing-plan.php?cmpid=153">
-                        <button >Choose plan</button>
-						</a>
-						</center>
-                        <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
-                    </div>
-                </div>
-
-                <div class="pricing-plan-card">
-                    <div style="min-height: 140px;">
-                        <h2 class="text-center pt-3" style="color: white;">Monthly</h2>
-                    </div>
-                    <div class="ribbon left">Best value deal </div>
-                    <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>90</span></h1>
-                    <div style="min-height: 320px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-                        <ul class="pricing_plan_ul">
-                            <li>Best value deal </li>
-                            <li>Unlimited monthly access </li>
-                            <li>Hassle-free subscription </li>
-                        </ul>
-						<center>
-						<a href="pricing-plan.php?cmpid=155">
-                        <button>Choose plan</button>
-						</a>
-						</center>
-                        <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
-                    </div>
-                </div>
-
-
-                <div class="pricing-plan-card">
-                    <div>
-                        <h2 class="text-center pt-3" style="color: white;">Weekly</h2>
-                    </div>
-                    <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>20</span></h1>
-                    <div style="min-height: 300px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-                        <ul class="pricing_plan_ul">
-                            <li>Affordable short-term option </li>
-                            <li>Save on daily rates </li>
-                            <li>Best for quick use </li>
-                        </ul>
-						<center>
-						<a href="pricing-plan.php?cmpid=154">
-                        <button >Choose plan</button>
-						</a>
-						</center>
-                        <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
-                    </div>
-                </div>
-
-            </div>
+      <?php if(isset($step) && $step == 2){ ?>
+        <div style="position: absolute; margin-top: 100px; background: #ffffff; border-radius: 15px; color: #d22036; padding: 30px 10px; top: 30%; left: 50%; transform: translate(-50%, -50%); width: 90%;">
+          <h1 class="text-2xl font-semibold text-center"><?= $msgg ?></h1>
         </div>
-    </div>
-    </div>
+
+        <script>
+          window.location.href = '<?= $redirectUrl ?>';
+        </script>
+      <?php } ?>
+
+      <?php if(!isset($step) || $step != 2){ ?>
+
+      <div class="pricing-wrap section-pb-60" id="main-container" style="margin-bottom: 80px; margin-top: 80px;">
+
+        <div class="container d-flex">
+          <div class="row row-cols-md-3 row-cols-1" id="pricing_plan_card_container" style="margin: auto; row-gap: 40px;">
+              
+              <div class="pricing-plan-card">
+                <div>
+                    <h2 class="text-center pt-3" style="color: white;">Daily</h2>
+                </div>
+                <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>10</span></h1>
+                <div style="min-height: 300px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                  <ul class="pricing_plan_ul">
+                      <li>Pay per day </li>
+                      <li>No commitment </li>
+                      <li>Ideal for trials </li>
+                  </ul>
+                  <center>
+                    <a href="pricing-plan.php?cmpid=153">
+                      <button >Choose plan</button>
+                    </a>
+                  </center>
+                  <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
+                </div>
+              </div>
+
+              <div class="pricing-plan-card">
+                <div style="min-height: 140px;">
+                    <h2 class="text-center pt-3" style="color: white;">Monthly</h2>
+                </div>
+                <div class="ribbon left">Best value deal </div>
+                <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>90</span></h1>
+                <div style="min-height: 320px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                    <ul class="pricing_plan_ul">
+                        <li>Best value deal </li>
+                        <li>Unlimited monthly access </li>
+                        <li>Hassle-free subscription </li>
+                    </ul>
+                    <center>
+                      <a href="pricing-plan.php?cmpid=155">
+                        <button>Choose plan</button>
+                      </a>
+                    </center>
+                    <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
+                </div>
+              </div>
+
+              <div class="pricing-plan-card">
+                <div>
+                    <h2 class="text-center pt-3" style="color: white;">Weekly</h2>
+                </div>
+                <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>20</span></h1>
+                <div style="min-height: 300px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                    <ul class="pricing_plan_ul">
+                        <li>Affordable short-term option </li>
+                        <li>Save on daily rates </li>
+                        <li>Best for quick use </li>
+                    </ul>
+                    <center>
+                      <a href="pricing-plan.php?cmpid=154">
+                        <button >Choose plan</button>
+                      </a>
+                    </center>
+                    <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+        <?php } ?>
+  </div>
 
     <!-- Javascript Dependencies -->
     <script src="assets/js/main.js"></script>

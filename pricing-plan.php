@@ -1,4 +1,150 @@
 <?php
+session_start();
+ob_start();
+require_once('config/defines.php');
+ini_set('error_log',BASE_LOG_PATH.'/portal_request_'.date('Y-m-d').'.log');
+require_once('services/BillingFunctions.php');
+$bp = BILLER_ID;
+$publisher = PUBLISHER;
+$objB=new BillingFunction();
+if (isset($_REQUEST['cmpid']) && !empty($_REQUEST['cmpid'])){
+	error_log( "[pricing-plan.php] [".urldecode(http_build_query($_REQUEST,'|'))."]");
+
+	$cmpid = trim($_REQUEST['cmpid']);
+	$_SESSION['CMPID'] = $cmpid ;
+
+
+			$campDetails = $objB->getCampById($cmpid);
+			$campName = $campDetails['camaping_name'];
+			$packId = $campDetails['pack_id'];
+			//echo $packId;die;
+			################ GET PACK DETAILS BY ID ###################
+			$packDetails = $objB->getPackById($packId);
+			$pack_price = $packDetails['price'];
+			$product_id = $packDetails['product_id'];
+			$pack_name = $packDetails['name'];
+			$pack_description = $packDetails['pack_description'];
+			$pack_validity = $packDetails['duration'];
+			$cgUrl = $packDetails['message'];
+			################ END PACK DETAILS BY ID ###################
+
+
+					$msisdn = $_SESSION['MSISDN'] ;
+					//setcookie('mobilenumber', $msisdn, time() + (60*60*24*365),'/');
+					
+					
+					########################## START CHECK ALREADY SUBSCRIBE ############
+					$reqArr = array();
+					$reqArr['msisdn'] = $msisdn;
+					$reqArr['tid'] = time().uniqid();
+					//$isSubscribedUser = $objB->isSubscribedUser($bp, $msisdn,$publisher);
+					//if($isSubscribedUser == 'subscribed'){
+					$statusApi = $objB->statusApi($reqArr);
+					if($statusApi->code == '0'){
+						$_SESSION["sign_up"] = 1;
+                       // $objB->setLastCookieId($msisdn);
+					    setcookie('mobilenumber',$msisdn,  time() + (60*60),'/', '' );
+					//  Header('Location: home-test.php');
+                       header("Location: ADD_USER.php?msisdn=$msisdn");die;
+						// header("location:index.php");die;
+					}
+
+				########################## END CHECK ALREADY SUBSCRIBE ############
+				###################### START USER HIT ##############
+
+							$hitip = $objB->getip();
+							$userAgent ="";
+							$usermobiledata ='GPRS';
+							//$interface = "pheture_sa_lifepulse";
+							//echo '3';
+
+							$user_hit_id=$objB->setUsersHit($msisdn,$hitip, $campName,$cmpid, $packId, $userAgent, $bp,$publisher,$usermobiledata);
+							$userAgent =$_SERVER['HTTP_USER_AGENT'];
+							//echo '4';
+
+							error_log("setUsersHit | plans.php |  CMPID = ".$cmpid." | msisdn=".$msisdn."| HIT IP =".$hitip." | Hit ID=".$user_hit_id."  | pack_id=".$packId." | bp=".$bp." | userAgent=".$userAgent." | firstHit=".@http_build_query($_GET));
+							###################### END USER HIT ##############
+							
+				####################### START ADD TRANSACTION DATA ###########
+				//$user_hit_id = $_SESSION['HIT_ID'];
+				$hitip = $objB->getip();
+				$billingInfo = array();
+				$transaction_time = date("Y-m-d H:i:s");
+				$pubId='NA';
+				 $adnetworkid= 'NA';
+				 $transaction_unique_id = time().uniqid();
+				 $billingInfo['subscribed_user_id'] = 0;
+				$billingInfo['msisdn'] = $msisdn;
+				$billingInfo['pack_id'] = $packId;
+				$billingInfo['biller_id'] = $bp;
+				$billingInfo['product_id'] = $product_id;
+				$billingInfo['transaction_time'] = $transaction_time;
+				$billingInfo['transaction_unique_id'] =$transaction_unique_id;
+				$billingInfo['requested_price'] = $pack_price;
+				$billingInfo['interface'] = $campName;
+				$billingInfo['adnetwork_id'] = $adnetworkid;
+				$billingInfo['hit_id'] = $user_hit_id;
+				$billingInfo['publisher'] = $publisher;
+				$billingInfo['pub_id'] = $pubId;
+				$billingInfo['ip_address'] = $hitip;
+				$billingInfo['encryptedMdn'] =$msisdn;
+				$billingInfo['cmpid'] =$cmpid;
+				$billingInfo['param2'] ='';
+				$billingInfo['param3'] ='';
+				$TransData = $objB->addTransactionData($billingInfo);
+				####################### END ADD TRANSACTION DATA ###########
+				
+				###################### SUBSCRIBE REQUEST ################
+				$reqArr = array();
+				$reqArr['msisdn'] = $msisdn;
+				$reqArr['tid'] = $transaction_unique_id;
+				$reqArr['pid'] = $product_id;
+				$subscriptionApi = $objB->subscriptionApi($reqArr);
+				$msgg = @$subscriptionApi->message;
+				if($subscriptionApi->code == '0' && $subscriptionApi->message == 'ACCEPTED'){
+
+					//$redirectUrl = $subscriptionApi->data->paymentUrl;
+					//error_log("REDIRECT TO PAYMENT URL = ".$redirectUrl);
+					//header("location:".$redirectUrl);
+					/*
+					sleep(5);
+					$redirectUrl = SITE_URL;
+					echo "<script>window.alert('Your request accepted succesfully.')
+					window.location.href='$redirectUrl'</script>";
+					exit();
+					*/
+					$_SESSION["sign_up"] = 1;
+                    $objB->setLastCookieId($msisdn);
+					 setcookie('mobilenumber',$msisdn,  time() + (60*60),'/', '' );
+					$msgg = 'Your subscription request has been received and is being processed.';
+					
+					
+					$redirectUrl = "ADD_USER.php?msisdn=$msisdn";
+					// $redirectUrl = "home-test.php";
+					echo "<script>window.alert('".$msgg."')
+					window.location.href='$redirectUrl'</script>";
+					exit();
+					
+					
+					// Header('Location: home-test.php');
+                    //header("location:api.php?func=ADD_USER&msisdn=$msisdn");die;
+					// header("location:".SITE_URL);die;
+					
+				}else{
+					$msgg = @$subscriptionApi->error;
+					if(empty($msgg)){
+					$msgg = 'Sorry,Something went wrong.Please try later.';
+					}
+					$redirectUrl = SITE_URL;
+					echo "<script>window.alert('".$msgg."')
+					window.location.href='$redirectUrl'</script>";
+					exit();
+				}
+
+}
+
+?>
+<?php
 $msisdn = isset($_GET['msisdn']) ? $_GET['msisdn'] : null;
 if(isset($msisdn)){
   setcookie(
@@ -8,7 +154,8 @@ if(isset($msisdn)){
     '/',  // Path
     ''   // Domain
   );
-  Header('Location: home-test.php');
+//   Header('Location: home-test.php');
+header("Location: ADD_USER.php?msisdn=$msisdn");die;
 }
 ?>
 <!DOCTYPE html>
@@ -25,7 +172,16 @@ if(isset($msisdn)){
       type="image/x-icon"
     />
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet">
@@ -57,7 +213,7 @@ if(isset($msisdn)){
       <!-- Page Title Start -->
       <div class="flex justify-start items-center gap-4 relative z-10">
         <a
-          href="home.html"
+          href="home.php"
           class="bg-white p-2 rounded-full flex justify-center items-center text-xl dark:bg-color10"
         >
           <i class="ph ph-caret-left"></i>
@@ -81,7 +237,11 @@ if(isset($msisdn)){
                             <li>No commitment </li>
                             <li>Ideal for trials </li>
                         </ul>
-                        <button onclick="window.location.href='?msisdn=123456789'">Choose plan</button>
+						<center>
+						<a href="pricing-plan.php?cmpid=153">
+                        <button >Choose plan</button>
+						</a>
+						</center>
                         <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
                     </div>
                 </div>
@@ -98,7 +258,11 @@ if(isset($msisdn)){
                             <li>Unlimited monthly access </li>
                             <li>Hassle-free subscription </li>
                         </ul>
-                        <button onclick="window.location.href='?msisdn=123456789'">Choose plan</button>
+						<center>
+						<a href="pricing-plan.php?cmpid=155">
+                        <button>Choose plan</button>
+						</a>
+						</center>
                         <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
                     </div>
                 </div>
@@ -115,7 +279,11 @@ if(isset($msisdn)){
                             <li>Save on daily rates </li>
                             <li>Best for quick use </li>
                         </ul>
-                        <button onclick="window.location.href='?msisdn=123456789'">Choose plan</button>
+						<center>
+						<a href="pricing-plan.php?cmpid=154">
+                        <button >Choose plan</button>
+						</a>
+						</center>
                         <p style="font-size: 9px; line-height: 12px; text-align: center;">Cancel anytime, 24/7 customer support </p>
                     </div>
                 </div>

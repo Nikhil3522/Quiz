@@ -7,6 +7,17 @@ require_once('services/BillingFunctions.php');
 $bp = BILLER_ID;
 $publisher = PUBLISHER;
 $objB=new BillingFunction();
+
+function redirectTOSuccess($msgg, $redirectUrl){
+  echo '<form id="autoForm" action="success-page.php" method="POST">
+        <input type="hidden" name="msg" value="' . htmlspecialchars($msgg, ENT_QUOTES, 'UTF-8') . '">
+        <input type="hidden" name="redirectUrl" value="' . htmlspecialchars($redirectUrl, ENT_QUOTES, 'UTF-8') . '">
+      </form>
+      <script>
+          document.getElementById("autoForm").submit();
+      </script>';
+}
+
 if (isset($_REQUEST['cmpid']) && !empty($_REQUEST['cmpid'])){
 	error_log( "[pricing-plan.php] [".urldecode(http_build_query($_REQUEST,'|'))."]");
 
@@ -114,13 +125,12 @@ if (isset($_REQUEST['cmpid']) && !empty($_REQUEST['cmpid'])){
 					exit();
 					*/
 					$_SESSION["sign_up"] = 1;
-                    $objB->setLastCookieId($msisdn);
-					 setcookie('mobilenumber',$msisdn,  time() + (60*60),'/', '' );
+          $objB->setLastCookieId($msisdn);
+					setcookie('mobilenumber',$msisdn,  time() + (60*60),'/', '' );
 					$msgg = 'Your subscription request has been received and is being processed.';
-					
-					
 					$redirectUrl = "ADD_USER.php?msisdn=$msisdn";
-          $step = 2;
+
+          redirectTOSuccess($msgg, $redirectUrl);
 					// $redirectUrl = "home-test.php";
 					// exit();
 					
@@ -135,7 +145,9 @@ if (isset($_REQUEST['cmpid']) && !empty($_REQUEST['cmpid'])){
 					$msgg = 'Sorry,Something went wrong.Please try later.';
 					}
 					$redirectUrl = SITE_URL;
-          $step = 2;
+          echo "<script>
+                  alert(\"" . addslashes($msgg) . "\");
+                </script>";
 
 					// exit();
 				}
@@ -160,7 +172,7 @@ header("Location: ADD_USER.php?msisdn=$msisdn");die;
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8" />
@@ -220,18 +232,6 @@ header("Location: ADD_USER.php?msisdn=$msisdn");die;
         <h2 class="text-2xl font-semibold text-white">Choose Your Plan</h2>
       </div>
       <!-- Page Title End -->
-
-      <?php if(isset($step) && $step == 2){ ?>
-        <div style="position: absolute; margin-top: 100px; background: #ffffff; border-radius: 15px; color: #d22036; padding: 30px 10px; top: 30%; left: 50%; transform: translate(-50%, -50%); width: 90%;">
-          <h1 class="text-2xl font-semibold text-center"><?= $msgg ?></h1>
-        </div>
-
-        <script>
-          window.location.href = '<?= $redirectUrl ?>';
-        </script>
-      <?php } ?>
-
-      <?php if(!isset($step) || $step != 2){ ?>
 
       <div class="pricing-wrap section-pb-60" id="main-container" style="margin-bottom: 80px; margin-top: 80px;">
 
@@ -301,8 +301,6 @@ header("Location: ADD_USER.php?msisdn=$msisdn");die;
           </div>
         </div>
       </div>
-
-        <?php } ?>
   </div>
 
     <!-- Javascript Dependencies -->
@@ -310,5 +308,5 @@ header("Location: ADD_USER.php?msisdn=$msisdn");die;
   <script defer src="index.js"></script>
 </body>
 
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
 </html>

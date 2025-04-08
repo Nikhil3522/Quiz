@@ -1445,8 +1445,8 @@ video {
 }
 .bg-p2{
   --tw-bg-opacity: 1;
-  background-color: rgba(228, 0, 40, 1);
-  background-color: rgba(228, 0, 40, var(--tw-bg-opacity));
+  background-color: rgba(240, 0, 40, 1);
+  background-color: rgba(240, 0, 40, var(--tw-bg-opacity));
 }
 .bg-p3{
   --tw-bg-opacity: 1;
@@ -1802,13 +1802,13 @@ video {
 }
 .text-p1{
   --tw-text-opacity: 1;
-  color: rgba(228, 0, 40, 1);
-  color: rgba(228, 0, 40, var(--tw-text-opacity));
+  color: rgba(240, 0, 40, 1);
+  color: rgba(240, 0, 40, var(--tw-text-opacity));
 }
 .text-p2{
   --tw-text-opacity: 1;
-  color: rgba(228, 0, 40, 1);
-  color: rgba(228, 0, 40, var(--tw-text-opacity));
+  color: rgba(240, 0, 40, 1);
+  color: rgba(240, 0, 40, var(--tw-text-opacity));
 }
 .text-p3{
   --tw-text-opacity: 1;
@@ -1967,11 +1967,11 @@ body.dark .toggle.active {
 }
 .quizDetailsTab .tab-button .tabButton.activeTabButton{
   --tw-border-opacity: 1;
-  border-color: rgba(228, 0, 40, 1);
-  border-color: rgba(228, 0, 40, var(--tw-border-opacity));
+  border-color: rgba(240, 0, 40, 1);
+  border-color: rgba(240, 0, 40, var(--tw-border-opacity));
   --tw-text-opacity: 1;
-  color: rgba(228, 0, 40, 1);
-  color: rgba(228, 0, 40, var(--tw-text-opacity));
+  color: rgba(240, 0, 40, 1);
+  color: rgba(240, 0, 40, var(--tw-text-opacity));
 }
 
 /* Swiper Styles */
@@ -2586,7 +2586,7 @@ path {
 
 
 .ph{
-  color: rgba(228, 0, 40, 1);
+  color: rgba(240, 0, 40, 1);
 }
 
 .ph-x, .ph-globe, .ph-user, .ph-list, .ph-dots-three, .ph-check, .ph-diamonds-four, .ph-gear-six, .ph-seal-question, .ph-sign-out, .ph-medal, .ph-exam{

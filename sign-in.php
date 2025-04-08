@@ -35,7 +35,7 @@ if(isset($_REQUEST["msisdn"]) && !empty($_REQUEST["msisdn"]) ){
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8" />
@@ -103,9 +103,17 @@ if(isset($_REQUEST["msisdn"]) && !empty($_REQUEST["msisdn"]) ){
             <div
               class="flex justify-between items-center py-3 px-4 border border-color21 rounded-xl dark:border-color18 gap-3"
             >
+              <p style="color: gray; font-size: 16px;">+93</p>
               <input
-                type="number"
-                placeholder="XXX-XXX-XXX"  name="msisdn" id="msisdn"   maxlength="9" style="padding: 10px 0px;" required
+                type="text"
+                inputmode="numeric"
+                pattern="\d{9}"
+                maxlength="9"
+                placeholder="XXX-XXX-XXX"
+                name="msisdn"
+                id="msisdn"
+                style="padding: 10px 0px; font-size: 16px;"
+                required
                 class="outline-none bg-transparent text-n600 text-sm placeholder:text-sm w-full placeholder:text-bgColor18 dark:text-color18 dark:placeholder:text-color18"
               />
               <i
@@ -124,7 +132,19 @@ if(isset($_REQUEST["msisdn"]) && !empty($_REQUEST["msisdn"]) ){
 
     <!-- Javascript Dependencies -->
     <script src="assets/js/main.js"></script>
-  <script defer src="index.js"></script></body>
+  <script defer src="index.js"></script>
+  <script>
+    // document.getElementById('msisdn').addEventListener('input', function () {
+    //     if (this.value.length > 9) {
+    //         this.value = this.value.slice(0, 9);
+    //     }
+    // });
 
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
+    document.getElementById('msisdn').addEventListener('input', function (e) {
+    this.value = this.value.replace(/\D/g, '').slice(0, 9);
+  });
+  </script>
+</body>
+
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
 </html>

@@ -263,7 +263,7 @@ header("Location: ADD_USER.php?msisdn=$msisdn");die;
                     <h2 class="text-center pt-3" style="color: white;">Monthly</h2>
                 </div>
                 <div class="ribbon left">Best value deal </div>
-                <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>90</span></h1>
+                <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>120</span></h1>
                 <div style="min-height: 320px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
                     <ul class="pricing_plan_ul">
                         <li>Best value deal </li>
@@ -283,7 +283,7 @@ header("Location: ADD_USER.php?msisdn=$msisdn");die;
                 <div>
                     <h2 class="text-center pt-3" style="color: white;">Weekly</h2>
                 </div>
-                <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>20</span></h1>
+                <h1 style="display: flex; justify-content: center;"><img src="assets/images/AFN-currency.png" style="width: 30px; height: 55px; margin-top: 15px;"><span>35</span></h1>
                 <div style="min-height: 300px; background: whitesmoke; padding-top: 45px; padding-bottom: 10px; display: flex; flex-direction: column; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
                     <ul class="pricing_plan_ul">
                         <li>Affordable short-term option </li>

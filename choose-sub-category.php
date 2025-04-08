@@ -1,3 +1,12 @@
+<?php
+  include('cons.php');
+  if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+    echo '<script type="text/javascript">
+            window.location.href = "logout.php";
+        </script>';
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -12,7 +21,16 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>
@@ -55,7 +73,6 @@
 
         <div class="grid grid-cols-2 gap-5 pt-5 text-center levelItems">
           <?php
-            include('cons.php');
             $category_id = $_GET['category_id'];
             $query = "SELECT * FROM quiz_sub_categories WHERE category_id = $category_id";
             $result = $conn->query($query);
@@ -72,7 +89,7 @@
             >
               <i class="ph ph-lock-simple"></i>
             </div>
-            <span style=" background: rgba(228, 0, 40, 1); height: 55px; width: 55px; border-radius: 35px; text-align: center; line-height: 55px; font-size: 30px; color:rgb(255, 255, 255); font-weight: 600;"><?= substr($sub_category_name, 0, 1); ?></span>
+            <span style=" background: rgba(240, 0, 40, 1); height: 55px; width: 55px; border-radius: 35px; text-align: center; line-height: 55px; font-size: 30px; color:rgb(255, 255, 255); font-weight: 600;"><?= substr($sub_category_name, 0, 1); ?></span>
             <p class="text-sm font-semibold pt-3"><?= $sub_category_name ?></p>
             <button
               onclick="window.location.href='choose-level.php?sub_category_id=<?= $sub_category_id ?>&sub_category_name=<?= $sub_category_name ?>'"

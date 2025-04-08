@@ -1,8 +1,8 @@
 <?php
-require_once("config.php");
+require_once("cons.php");
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
   echo '<script type="text/javascript">
           window.location.href = "logout.php";
       </script>';
@@ -27,7 +27,16 @@ $instituteName = $fetchinstituteName->instituteName;
       type="image/x-icon"
     />
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>

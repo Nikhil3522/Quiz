@@ -1,3 +1,12 @@
+<?php
+  include('cons.php');
+  if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+    echo '<script type="text/javascript">
+            window.location.href = "logout.php";
+        </script>';
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -11,14 +20,20 @@
       href="assets/images/letter-w.png"
       type="image/x-icon"
     />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
-    <?php
-        include('cons.php');
-    ?>
     <div
       class="container min-h-dvh relative overflow-hidden py-8 dark:text-white dark:bg-color1"
     >
@@ -47,7 +62,7 @@
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
             <a
-              href="home.html"
+              href="home.php"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-x" style="color: #da1133;"></i>
@@ -153,7 +168,7 @@
           <a
             id="test-enlgish-level-a"
             class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
-            onclick="window.location.href='home.html'"
+            onclick="window.location.href='home.php'"
             style="background: #ff710f;"
             >
             <!-- onclick="window.location.href='quiz.php?quiz_id=2&quiz_name=Intermediate&quiz_level=Intermediate'" -->
@@ -163,7 +178,7 @@
         <div class="pt-2" id="qwe">
           <a
             class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full cursor-pointer"
-            onclick="window.location.href='home.html'"
+            onclick="window.location.href='home.php'"
             style="background: #ff710f;"
             >
             <!-- onclick="window.location.href='quiz.php?quiz_id=2&quiz_name=Intermediate&quiz_level=Intermediate'" -->

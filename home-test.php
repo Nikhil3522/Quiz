@@ -1,6 +1,7 @@
 <?php
-require_once("config.php");
-if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+require_once("cons.php");
+
+if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
   echo '<script type="text/javascript">
           window.location.href = "logout.php";
       </script>';
@@ -10,7 +11,7 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:35 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8" />
@@ -21,7 +22,16 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
       type="image/x-icon"
     />
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>
@@ -51,7 +61,7 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
       <!-- Page Title Start -->
       <div class="flex justify-start items-center gap-4 relative z-10">
         <a
-          href="home.html"
+          href="home.php"
           class="bg-white p-2 rounded-full flex justify-center items-center text-xl dark:bg-color10"
         >
           <i class="ph ph-caret-left"></i>
@@ -61,7 +71,7 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
       <!-- Page Title End -->
 
       <!-- Sign In Form Start -->
-      <form action="otp.html" class="relative z-10">
+      <form action="otp.php" class="relative z-10">
         <div class="bg-white py-8 px-6 rounded-xl mt-12 dark:bg-color10" style="margin-top: 150px;">
           <p class="text-xl font-semibold text-center">What's Your English Level?</p>
           <hr class="mt-2"></hr>
@@ -75,7 +85,7 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
           >Next</a
         >
         <a
-          href="home.html"
+          href="home.php"
           class="bg-p2 rounded-full py-3 text-white text-sm font-semibold text-center block mt-2 dark:bg-p1"
           style="background: #914d4d;"
           >SKIP</a
@@ -87,5 +97,5 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
     <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script></body>
 
-<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
+<!-- Mirrored from quizio-pwa-html-app.vercel.app/sign-in.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2024 12:49:40 GMT -->
 </html>

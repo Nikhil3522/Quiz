@@ -1,6 +1,6 @@
 <?php
-require_once("config.php");
-if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+require_once("cons.php");
+if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
   echo '<script type="text/javascript">
           window.location.href = "logout.php";
       </script>';
@@ -18,7 +18,16 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" href="assets/images/letter-w.png" type="image/x-icon" />
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
   <link rel="manifest" href="manifest.json" />
   <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet">
@@ -38,7 +47,7 @@ if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empt
     <div class="relative z-10">
       <div class="flex justify-between items-center gap-4 px-6">
         <div class="flex justify-start items-center gap-4">
-          <a href="home.html"
+          <a href="home.php"
             class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10">
             <i class="ph ph-caret-left"></i>
           </a>

@@ -1,6 +1,6 @@
 <?php
-  require_once("config.php");
-  if(!isset($user_id) || $user_id == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+  require_once("cons.php");
+  if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
     echo '<script type="text/javascript">
             window.location.href = "logout.php";
         </script>';
@@ -21,7 +21,16 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>
@@ -51,7 +60,7 @@
       <!-- Page Title Start -->
       <div class="flex justify-start items-center gap-4 relative z-10">
         <a
-          href="home.html"
+          href="home.php"
           class="bg-white p-2 rounded-full flex justify-center items-center text-xl dark:bg-color10"
         >
           <i class="ph ph-caret-left"></i>

@@ -1,5 +1,11 @@
 <?php
-require_once("config.php");
+require_once("cons.php");
+if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+  echo '<script type="text/javascript">
+          window.location.href = "logout.php";
+      </script>';
+  exit();
+}
 $query_string = $_SERVER['QUERY_STRING'];
 ?>
 <!DOCTYPE html>
@@ -15,7 +21,16 @@ $query_string = $_SERVER['QUERY_STRING'];
       href="assets/images/letter-w.png"
       type="image/x-icon"
     />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>

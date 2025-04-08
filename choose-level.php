@@ -1,3 +1,12 @@
+<?php
+  include('cons.php');
+  if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+    echo '<script type="text/javascript">
+            window.location.href = "logout.php";
+        </script>';
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -11,14 +20,20 @@
       href="assets/images/letter-w.png"
       type="image/x-icon"
     />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <link rel="manifest" href="manifest.json" />
     <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="relative -z-20">
-    <?php
-      include('cons.php');
-    ?>
     <div
       class="container min-h-dvh relative overflow-hidden py-8 dark:text-white -z-10 dark:bg-color1"
     >

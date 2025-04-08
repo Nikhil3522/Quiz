@@ -1,5 +1,11 @@
 <?php
-require_once("config.php");
+require_once("cons.php");
+if(!isset($user_id) || $user_id == 0 || !isset($sign_up) || $sign_up == 0 || !isset($_COOKIE['mobilenumber']) || empty($_COOKIE['mobilenumber'])){
+  echo '<script type="text/javascript">
+          window.location.href = "logout.php";
+      </script>';
+  exit();
+}
 $instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
 ?>
 <!DOCTYPE html>
@@ -13,7 +19,16 @@ $instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" href="assets/images/letter-w.png" type="image/x-icon" />
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
   <link rel="manifest" href="manifest.json" />
   <title>Whiteboard</title>
   <link href="style.css" rel="stylesheet">
@@ -183,7 +198,7 @@ $instituteId = isset($_REQUEST['iid']) ? $_REQUEST['iid'] : '';
               while($fetchLessons = mysqli_fetch_object($getLessons)){
           ?>
             <a href="#" class="rounded-2xl overflow-hidden shadow2">
-                <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: rgba(228, 0, 40, 1);">
+                <div class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"  style="background: rgba(240, 0, 40, 1);">
                     <div class="flex justify-start items-center gap-3">
                     <p class="font-medium text-white"><?php echo $fetchLessons->lessonName; ?></p>
                     </div>

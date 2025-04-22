@@ -526,3 +526,20 @@ function getLevelOfUser(){
     document.getElementById('level_display').innerText = englishLevel
   });
 }
+
+function unsubCall(msisdn){
+  $.ajax({
+    url: `unsubscribe.php?msisdn=${msisdn}`,
+    method: 'GET',
+    success: function(data) {
+      if(data === "success"){
+        window.location.href= "logout.php";
+      }else{
+        alert("Something went wrong, Please try after sometimes.");
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('Error:', error); 
+    }
+  });
+}

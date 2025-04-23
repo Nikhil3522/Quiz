@@ -4,7 +4,6 @@
 
 include('cons.php');
 $function_name = isset($_GET['function_name']) ? $_GET['function_name'] : $_GET['func'];
-$user_id = 1;
 
 switch ($function_name) {
     case 'ADD_USER':
@@ -49,18 +48,21 @@ switch ($function_name) {
         break;
     case 'load_questions':
 
-        if($_GET['quiz_level']){
+        if(isset($_GET['quiz_level']) && !empty($_GET['quiz_level'])){
             $level = $_GET['quiz_level']; 
             $query = "SELECT question_id, quiz_level, type, questions, first_option, second_option, third_option, fourth_option, fifth_option  FROM test_your_english_questions WHERE quiz_level = ?;";
 
             $stmt = $conn->prepare($query);
             $stmt->bind_param('s', $level);
-        }else{
-            $quiz_id = 31;
+        }else if(isset($_GET['quiz_id']) && !empty($_GET['quiz_id'])){
+            $quiz_id = $_GET['quiz_id'];
             $query = "SELECT question_id, type, questions, first_option, second_option, third_option, fourth_option FROM quiz_questions WHERE quiz_id = ?;"; 
             
             $stmt = $conn->prepare($query);
             $stmt->bind_param('i', $quiz_id);
+        }else {
+            echo "Quiz id OR quiz level is not found";
+            break;
         }
 
         $stmt->execute();
@@ -101,7 +103,6 @@ switch ($function_name) {
         break;
     case 'submit_answer':
         $quiz_id = $_GET['quiz_id'];
-        $user_id = 1;
         $answer_json = $_GET['answer_json']; // Make sure this is already a valid JSON string
         $correct_quest = $_GET['correct_ques'];
         $incorrect_ques = $_GET['incorrect_ques'];

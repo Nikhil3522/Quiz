@@ -73,20 +73,23 @@ switch ($function_name) {
         break;
     case 'get_correct_answer':
 
-        if($_GET['quiz_level']){
+        if(isset($_GET['quiz_level']) && !empty($_GET['quiz_level'])){
             $level = $_GET['quiz_level']; 
 
             $query = "SELECT question_id, correct_answer FROM test_your_english_questions WHERE quiz_level = ?;";
 
             $stmt = $conn->prepare($query);
             $stmt->bind_param('s', $level);
-        }else{
-            $quiz_id = 31;
+        }else if(isset($_GET['quiz_id']) && !empty($_GET['quiz_id'])){
+            $quiz_id = $_GET['quiz_id'];
 
             $query = "SELECT question_id, correct_answer FROM quiz_questions WHERE quiz_id = ?;";
 
             $stmt = $conn->prepare($query);
             $stmt->bind_param('i', $quiz_id);
+        }else{
+            echo "Quiz id OR quiz level not found";
+            break;
         }
 
         $stmt->execute();

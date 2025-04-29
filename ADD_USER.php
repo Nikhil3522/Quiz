@@ -59,5 +59,9 @@ if($result->num_rows > 0){
 }
 
 
-header('Location: home-test.php');
+if(isset($_GET['desktop']) && $_GET['desktop'] == true){
+    header('Location: desktop/english-test-instruction.php');
+}else{
+    header('Location: home-test.php');
+}
 die();
